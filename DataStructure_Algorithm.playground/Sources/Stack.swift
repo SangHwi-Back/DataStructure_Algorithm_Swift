@@ -5,6 +5,10 @@ public struct Stack<Element> {
     
     public init() { }
     
+    public init(_ elements: Array<Element>) { // Element 를 보내주는대로 Compiler 가 타입을 추론한다.
+        self.storage = elements
+    }
+    
     public mutating func push(_ element: Element) {
         storage.append(element) // append의 Complexity는 평균 O(1)
     }
@@ -31,5 +35,11 @@ extension Stack: CustomDebugStringConvertible {
         \(storage.map { "\($0)" }.reversed().joined(separator: "\n"))
         -----------
         """
+    }
+}
+
+extension Stack: ExpressibleByArrayLiteral {
+    public init(arrayLiteral elements: Element...) {
+        storage = elements
     }
 }

@@ -1,14 +1,11 @@
-import UIKit
+import Foundation
 
-var stack = Stack<Int>()
-stack.push(1)
-stack.push(2)
-stack.push(3)
-stack.push(4)
+let charArray = ["A", "B", "C", "D"]
+var stack = Stack<String>(charArray)
 
 print(stack)
+stack.pop()
 
-if let poppedElement = stack.pop() {
-    assert(4 == poppedElement)
-    print("Popped: \(poppedElement)")
-}
+var stackFromArray = Stack<Float>.init(arrayLiteral: 1.0, 2.0, 3.0, 4.0)
+print(stackFromArray)
+stackFromArray.pop()
