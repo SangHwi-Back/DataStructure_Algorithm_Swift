@@ -13,6 +13,14 @@ public struct Stack<Element> {
     public mutating func pop() -> Element? {
         storage.popLast() // popLast의 Complexity는 O(1)
     }
+    
+    public func peek() -> Element? {
+        storage.last // last의 Complecxity는 O(1)
+    }
+    
+    public var isEmpty: Bool {
+        peek() == nil
+    }
 }
 
 extension Stack: CustomDebugStringConvertible {
