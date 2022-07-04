@@ -43,3 +43,8 @@ extension Stack: ExpressibleByArrayLiteral {
         storage = elements
     }
 }
+
+/// Key points
+/// - stack은 LIFO, last-in-first-out 이다.
+/// - 간단하지만 중요하다.
+/// - push, pop 이라는 핵심 메소드가 있다.
