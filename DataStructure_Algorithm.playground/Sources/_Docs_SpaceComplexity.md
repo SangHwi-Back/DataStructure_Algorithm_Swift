@@ -61,3 +61,12 @@ while 문의 목적은 minValue 보다 큰 값을 찾기 위한 것이다.
 
 Big-O-notation 말고도, Big-Omega-notation 은 최적의 실행시간을 표현하고, Big-Theta-notation 은 최적/최악의 실행 유형을 표현한다.
 
+---
+
+## Key points
+- 시간 복잡도는 알고리즘 입력에 따라 증가하는 시간을 나타내는 것이다.
+- Constant/Logarithmic/Linear/Quasilinear/Quadratic 시간 복잡도에 대해 이해하고 이를 정렬할 수 있어야 한다.
+- 공간 복잡도는 알고리즘 실행을 위해 필요한 자원을 뜻한다.
+- Big-O-notation 은 일반적으로 시간, 공간 복잡도를 나타내는 기준이다.
+- 시간, 공간 복잡도는 확장성을 표현하는 기준이 된다. 반면에 실제 알고리즘의 속도를 나타내지는 않는다.
+- 적은 데이터만 존재할 경우 시간 복잡도 측정은 적당하지 않을 수 있다. 예를 들어 Quasilinear 는 Quadratic 알고리즘보다 O(n)일 경우 느릴 수 있다.
