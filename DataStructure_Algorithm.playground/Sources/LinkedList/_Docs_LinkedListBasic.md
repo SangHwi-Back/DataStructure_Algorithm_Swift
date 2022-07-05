@@ -18,3 +18,7 @@ LinkedList 는 노드 간의 연결로 이루어진다.
 - append : tail에 node를 삽입함. O(1)
 - insert(after:) : 특정 node 뒤에 node를 삽입함. O(1)
 - node(at) : 특정 index에 위치한 node를 반환함. O(i). i는 index.
+
+- pop : head를 삭제함. O(1)
+- removeLast : tail을 삭제함. O(n)
+- remove(after:) : 특정 index의 다음 node를 삭제하고 반환함. O(1)

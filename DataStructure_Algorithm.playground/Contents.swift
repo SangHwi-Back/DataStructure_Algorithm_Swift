@@ -1,31 +1,33 @@
 import Foundation
 
-var pushList = LinkedList<Int>()
+var popList = LinkedList<Int>()
+popList.push(3)
+popList.push(2)
+popList.push(1)
 
-pushList.push(3)
-pushList.push(2)
-pushList.push(1)
+print("Before popping list: \(popList)")
+let poppedValue = popList.pop()
+print("After popping list: \(popList)")
+print("Popped value: " + String(describing: poppedValue))
 
-print(pushList)
+var lastList = LinkedList<Int>()
+lastList.push(3)
+lastList.push(2)
+lastList.push(1)
 
-var appendList = LinkedList<Int>()
+print("Before removing last list: \(lastList)")
+let removedValue = lastList.removeLast()
+print("After removing last list: \(lastList)")
+print("Removed value: " + String(describing: removedValue))
 
-appendList.append(1)
-appendList.append(2)
-appendList.append(3)
+var removeList = LinkedList<Int>()
+removeList.push(3)
+removeList.push(2)
+removeList.push(1)
 
-print(appendList)
-
-var insertList = LinkedList<Int>()
-
-insertList.push(3)
-insertList.push(2)
-insertList.push(1)
-
-print("Before insert: \(insertList)")
-var middleNode = insertList.node(of: 1)! // 2?
-
-for _ in 1...4 {
-    middleNode = insertList.insert(-1, after: middleNode)
-}
-print("After insert: \(insertList)")
+print("Before removing at particular index: \(removeList)")
+let index = 1
+let node = removeList.node(of: index - 1)!
+let removedValue2 = removeList.remove(after: node)
+print("After removing at particular index \(index): \(removeList)")
+print("Removed value: " + String(describing: removedValue2))
