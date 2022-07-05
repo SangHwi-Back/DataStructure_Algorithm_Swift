@@ -10,3 +10,11 @@ LinkedList 는 값들이 선형적으로 배치된 것을 말한다. 방향은 �
 
 LinkedList 는 노드 간의 연결로 이루어진다.
 노드는 값을 저장하고, 다음 노드를 참조하고 있어야 한다. 다음 노드 참조값은 nil이 될 수 있는데 이는 자신이 마지막 노드라는 뜻이다.
+
+
+## 성능 분석
+
+- push : head에 node를 삽입함. O(1)
+- append : tail에 node를 삽입함. O(1)
+- insert(after:) : 특정 node 뒤에 node를 삽입함. O(1)
+- node(at) : 특정 index에 위치한 node를 반환함. O(i). i는 index.
