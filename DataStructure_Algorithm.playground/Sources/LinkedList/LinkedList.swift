@@ -135,17 +135,14 @@ public struct LinkedList<Value> {
     private mutating func copyNodes(returningCopyOf node: Node<Value>?) -> Node<Value>? {
         
         guard !isKnownUniquelyReferenced(&head) else {
-            print("!isKnownUniquelyReferenced(&head)")
             return nil
         }
         
         guard var oldNode = head else { // 복사하고 싶은 대상
-            print("var oldNode = head")
             return nil
         }
         
         head = Node(value: oldNode.value)
-        print("oldNode value : \(oldNode.value)")
         var newNode = head
         var nodeCopy: Node<Value>?
         
