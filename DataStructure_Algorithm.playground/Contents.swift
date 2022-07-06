@@ -1,33 +1,15 @@
 import Foundation
 
-var popList = LinkedList<Int>()
-popList.push(3)
-popList.push(2)
-popList.push(1)
+var collectionList = LinkedList<Int>()
 
-print("Before popping list: \(popList)")
-let poppedValue = popList.pop()
-print("After popping list: \(popList)")
-print("Popped value: " + String(describing: poppedValue))
+for i in 0...9 {
+    collectionList.append(i)
+}
 
-var lastList = LinkedList<Int>()
-lastList.push(3)
-lastList.push(2)
-lastList.push(1)
+print("List: \(collectionList)")
+print("First element: \(collectionList[collectionList.startIndex])")
+print("Array containing first 3 elements: \(Array(collectionList.prefix(3)))")
+print("Array containing last 3 elements: \(Array(collectionList.suffix(3)))")
 
-print("Before removing last list: \(lastList)")
-let removedValue = lastList.removeLast()
-print("After removing last list: \(lastList)")
-print("Removed value: " + String(describing: removedValue))
-
-var removeList = LinkedList<Int>()
-removeList.push(3)
-removeList.push(2)
-removeList.push(1)
-
-print("Before removing at particular index: \(removeList)")
-let index = 1
-let node = removeList.node(of: index - 1)!
-let removedValue2 = removeList.remove(after: node)
-print("After removing at particular index \(index): \(removeList)")
-print("Removed value: " + String(describing: removedValue2))
+let sum = collectionList.reduce(0, +)
+print("Sum of all values: \(sum)")
