@@ -13,6 +13,9 @@ public struct LinkedList<Value> {
     }
     
     public mutating func push(_ value: Value) {
+        
+        copyNodes()
+        
         head = Node(value: value, next: head)
         if tail == nil {
             tail = head
@@ -20,6 +23,9 @@ public struct LinkedList<Value> {
     }
     
     public mutating func append(_ value: Value) {
+        
+        copyNodes()
+        
         guard isEmpty == false else {
             push(value)
             return
@@ -43,6 +49,9 @@ public struct LinkedList<Value> {
     
     @discardableResult
     public mutating func insert(_ value: Value, after node: Node<Value>) -> Node<Value> {
+        
+        copyNodes()
+        
         guard tail !== node else {
             append(value)
             return tail!
@@ -54,6 +63,9 @@ public struct LinkedList<Value> {
     
     @discardableResult
     public mutating func pop() -> Value? {
+        
+        copyNodes()
+        
         defer {
             head = head?.next // head 가 사라질 것이므로, head 자리를 head.next가 대체함.
             if isEmpty {
@@ -66,6 +78,9 @@ public struct LinkedList<Value> {
     
     @discardableResult
     public mutating func removeLast() -> Value? { // 맨 뒤의 노드 전의 노드를 찾아야 하는 과정이 오래걸림. Node는 이전 노드를 기억하지 않음.
+        
+        copyNodes()
+        
         guard let head = head else {
             return nil
         }
@@ -89,6 +104,9 @@ public struct LinkedList<Value> {
     
     @discardableResult
     public mutating func remove(after node: Node<Value>) -> Value? {
+        
+        copyNodes()
+        
         defer {
             if node.next === tail {
                 tail = node
@@ -97,6 +115,24 @@ public struct LinkedList<Value> {
         }
         
         return node.next?.value
+    }
+    
+    private mutating func copyNodes() {
+        guard var oldNode = head else {
+            return
+        }
+        
+        head = Node(value: oldNode.value)
+        var newNode = head
+        
+        while let nextOldNode = oldNode.next {
+            newNode!.next = Node(value: nextOldNode.value)
+            newNode = newNode!.next
+            
+            oldNode = nextOldNode
+        }
+        
+        tail = newNode
     }
 }
 
