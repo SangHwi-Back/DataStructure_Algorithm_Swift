@@ -22,8 +22,6 @@ public struct LinkedList<Value> {
     
     public mutating func append(_ value: Value) {
         
-        copyNodes()
-        
         guard isEmpty == false else {
             push(value)
             return
@@ -59,8 +57,6 @@ public struct LinkedList<Value> {
     
     @discardableResult
     public mutating func pop() -> Value? {
-        
-        copyNodes()
         
         defer {
             head = head?.next // head 가 사라질 것이므로, head 자리를 head.next가 대체함.
