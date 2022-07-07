@@ -3,16 +3,11 @@ import Darwin
 
 // 1. Print in reverse
 func printInReverse<T>(list: LinkedList<T>) {
-    var list = list
-    var safeCount = 10
-    while list.isEmpty == false {
-        if let value = list.removeLast() { // removeLast not working
-            print(value)
-        }
-        safeCount -= 1
-        
-        if safeCount == 0 {
-            break
+    let startIndex = list.count - 1
+    
+    for index in 0..<list.count {
+        if let node = list.node(of: startIndex-index) {
+            print(node.value)
         }
     }
 }
@@ -117,7 +112,11 @@ list.append(3)
 list.append(3)
 list.append(3)
 list.append(4)
+
 print(printInReverse(list: list))
+print("----")
 print(findTheMiddlenode(list: list))
+print("----")
 print(reverseLinkedList(list: list))
+print("----")
 print(removeAllOccurrences(list: list, occurrence: 3))

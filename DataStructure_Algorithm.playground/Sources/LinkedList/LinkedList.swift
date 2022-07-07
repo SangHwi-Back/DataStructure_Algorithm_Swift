@@ -79,10 +79,7 @@ public struct LinkedList<Value> {
             return pop()
         }
         
-        guard var prev = copyNodes(returningCopyOf: head) else {
-            return nil
-        }
-        
+        var prev: Node<Value>?
         var current = head
         
         while let next = current.next {
@@ -90,7 +87,7 @@ public struct LinkedList<Value> {
             current = next
         }
         
-        prev.next = nil
+        prev?.next = nil
         tail = prev
         return current.value
     }
