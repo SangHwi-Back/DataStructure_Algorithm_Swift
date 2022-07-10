@@ -1,12 +1,12 @@
 import Foundation
 import Darwin
 
-// 1. Print in reverse
+// 1. Print in reverse O(n * n)
 func printInReverse<T>(list: LinkedList<T>) {
     let startIndex = list.count - 1
     
     for index in 0..<list.count {
-        if let node = list.node(of: startIndex-index) {
+        if let node = list.node(at: startIndex-index) {
             print(node.value)
         }
     }
@@ -15,7 +15,7 @@ func printInReverse<T>(list: LinkedList<T>) {
 // 2. Find the middle node
 func findTheMiddlenode<T>(list: LinkedList<T>) -> T? {
     let count = Int(floor(Double(list.count / 2)))
-    return list.node(of: count)?.value
+    return list.node(at: count)?.value
 }
 
 // 3. Reverse a linked list
@@ -49,32 +49,38 @@ func reverseLinkedList<T>(list: LinkedList<T>) -> LinkedList<T> {
  */
 func mergeTwoLists<T: Comparable>(lhs: LinkedList<T>, rhs: LinkedList<T>) -> LinkedList<T> {
     var resultList = LinkedList<T>()
-    var lhs = lhs
-    var rhs = rhs
+    var leftList = LinkedList<T>()
+    for value in lhs {
+        leftList.append(value)
+    }
+    var rightList = LinkedList<T>()
+    for value in rhs {
+        rightList.append(value)
+    }
     
-    while lhs.isEmpty == false || rhs.isEmpty == false {
-        if lhs.head?.value == nil, let value = rhs.head?.value {
+    while leftList.isEmpty == false || rightList.isEmpty == false {
+        if leftList.head?.value == nil, let value = rightList.head?.value {
             resultList.append(value)
-            rhs.pop()
-        } else if let value = lhs.head?.value, rhs.head?.value == nil {
+            rightList.pop()
+        } else if let value = leftList.head?.value, rightList.head?.value == nil {
             resultList.append(value)
-            lhs.pop()
+            leftList.pop()
         }
         
-        guard let lhsValue = lhs.head?.value, let rhsValue = rhs.head?.value else {
+        guard let lhsValue = leftList.head?.value, let rhsValue = rightList.head?.value else {
             continue
         }
         
         if lhsValue > rhsValue {
             resultList.append(rhsValue)
-            rhs.pop()
+            rightList.pop()
         } else if lhsValue < rhsValue {
             resultList.append(lhsValue)
-            lhs.pop()
+            leftList.pop()
         } else if lhsValue == rhsValue {
             resultList.append(lhsValue)
-            lhs.pop()
-            rhs.pop()
+            leftList.pop()
+            rightList.pop()
         }
     }
     
@@ -83,27 +89,37 @@ func mergeTwoLists<T: Comparable>(lhs: LinkedList<T>, rhs: LinkedList<T>) -> Lin
 
 // Remove All Occurrences
 func removeAllOccurrences<T: Comparable>(list: LinkedList<T>, occurrence: T) -> LinkedList<T> {
-    var index = 0
-    var list = list
     
-    if list.head?.value == occurrence {
-        list.pop()
-        return list
+    var newList = LinkedList<T>()
+    for value in list {
+        newList.append(value)
     }
     
-    while list.isEmpty == false && index <= list.count-1 {
-        if
-            let node = list.node(of: index),
-            let nextNode = list.node(of: index)?.next,
-            nextNode.value == occurrence
-        {
-            list.remove(after: node)
+    if newList.head?.value == occurrence {
+        while newList.head?.value == occurrence {
+            newList.pop()
+        }
+        
+        return newList
+    }
+    
+    var index = 0
+    
+    while newList.isEmpty == false && index <= newList.count-1 {
+        
+        guard let compareNode = newList.node(at: index) else {
+            index += 1
+            continue
+        }
+        
+        if compareNode.next?.value == occurrence {
+            newList.remove(after: compareNode)
         } else {
             index += 1
         }
     }
     
-    return list
+    return newList
 }
 
 var list = LinkedList<Int>()
@@ -118,5 +134,14 @@ print("----")
 print(findTheMiddlenode(list: list))
 print("----")
 print(reverseLinkedList(list: list))
+print("----")
+var rightList = LinkedList<Int>()
+rightList.append(-1)
+rightList.append(4)
+rightList.append(5)
+rightList.append(9)
+print(list, rightList)
+print(mergeTwoLists(lhs: list, rhs: rightList))
+print(mergeSorted(list, rightList)!)
 print("----")
 print(removeAllOccurrences(list: list, occurrence: 3))

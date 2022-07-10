@@ -12,6 +12,7 @@ public struct LinkedList<Value> {
         head == nil
     }
     
+    /// O(1)
     public mutating func push(_ value: Value) {
         
         head = Node(value: value, next: head)
@@ -20,6 +21,7 @@ public struct LinkedList<Value> {
         }
     }
     
+    /// O(1)
     public mutating func append(_ value: Value) {
         
         guard isEmpty == false else {
@@ -31,7 +33,8 @@ public struct LinkedList<Value> {
         tail = tail?.next
     }
     
-    public func node(of index: Int) -> Node<Value>? {
+    /// O(n-index)
+    public func node(at index: Int) -> Node<Value>? {
         var currentNode = head
         var currentIndex = 0
         
@@ -43,6 +46,7 @@ public struct LinkedList<Value> {
         return currentNode
     }
     
+    /// O(1)
     @discardableResult
     public mutating func insert(_ value: Value, after node: Node<Value>) -> Node<Value> {
         
@@ -55,6 +59,7 @@ public struct LinkedList<Value> {
         return node.next! // insert 된 Node.
     }
     
+    /// O(1)
     @discardableResult
     public mutating func pop() -> Value? {
         
@@ -68,6 +73,7 @@ public struct LinkedList<Value> {
         return head?.value
     }
     
+    /// O(n)
     @discardableResult
     public mutating func removeLast() -> Value? { // 맨 뒤의 노드 전의 노드를 찾아야 하는 과정이 오래걸림. Node는 이전 노드를 기억하지 않음.
         
@@ -92,6 +98,7 @@ public struct LinkedList<Value> {
         return current.value
     }
     
+    /// O(1)
     @discardableResult
     public mutating func remove(after node: Node<Value>) -> Value? {
         
