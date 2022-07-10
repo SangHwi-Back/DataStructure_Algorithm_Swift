@@ -1,13 +1,11 @@
 import Foundation
 
-public class SingleNode<Value> {
-    public let value: Value
+public final class SingleNode<Value>: Node<Value> {
+    public var next: SingleNode<Value>?
     
-    public var next: SingleNode?
-    
-    public init(value: Value, next: SingleNode? = nil) {
-        self.value = value
+    public init(value: Value, next: SingleNode<Value>? = nil) {
         self.next = next
+        super.init(value: value)
     }
 }
 
