@@ -1,17 +1,17 @@
 import Foundation
 
-public class Node<Value> {
+public class SingleNode<Value> {
     public let value: Value
     
-    public var next: Node?
+    public var next: SingleNode?
     
-    public init(value: Value, next: Node? = nil) {
+    public init(value: Value, next: SingleNode? = nil) {
         self.value = value
         self.next = next
     }
 }
 
-extension Node: CustomStringConvertible {
+extension SingleNode: CustomStringConvertible {
     
     public var description: String {
         guard let next = next else {

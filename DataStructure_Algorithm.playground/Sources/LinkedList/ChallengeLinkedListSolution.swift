@@ -1,18 +1,18 @@
 import Foundation
 
 // 1. Print in reverse
-private func printInReverse<T>(_ list: LinkedList<T>) {
+private func printInReverse<T>(_ list: SingleLinkedList<T>) {
     printInReverse(list.head)
 }
 
-private func printInReverse<T>(_ node: Node<T>?) {
+private func printInReverse<T>(_ node: SingleNode<T>?) {
     guard let node = node else { return }
     printInReverse(node.next)
     print(node.value)
 }
 
 // 2. Find the middle node
-private func getMiddle<T>(_ list: LinkedList<T>) -> Node<T>? {
+private func getMiddle<T>(_ list: SingleLinkedList<T>) -> SingleNode<T>? {
     var slow = list.head
     var fast = list.head // 2 배 빠른 탐색을 진행함.
     
@@ -25,7 +25,7 @@ private func getMiddle<T>(_ list: LinkedList<T>) -> Node<T>? {
 }
 
 // 3. Reverse a linked list
-extension LinkedList {
+extension SingleLinkedList {
     mutating func reverse() {
         tail = head
         var prev = head
@@ -44,14 +44,14 @@ extension LinkedList {
 }
 
 // 4. Merge two lists
-public func mergeSorted<T: Comparable>(_ left: LinkedList<T>, _ right: LinkedList<T>) -> LinkedList<T>? {
+public func mergeSorted<T: Comparable>(_ left: SingleLinkedList<T>, _ right: SingleLinkedList<T>) -> SingleLinkedList<T>? {
     
     guard !left.isEmpty else { return right }
     
     guard !right.isEmpty else { return left }
     
-    var newHead: Node<T>?
-    var tail: Node<T>?
+    var newHead: SingleNode<T>?
+    var tail: SingleNode<T>?
     
     var currentLeft = left.head
     var currentRight = right.head
@@ -88,7 +88,7 @@ public func mergeSorted<T: Comparable>(_ left: LinkedList<T>, _ right: LinkedLis
         tail?.next = rightNodes
     }
     
-    var list = LinkedList<T>()
+    var list = SingleLinkedList<T>()
     list.head = newHead
     list.tail = {
         while let next = tail?.next {

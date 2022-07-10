@@ -1,10 +1,9 @@
 import Foundation
 
-// 이중 연결 리스트
-public struct LinkedList<Value> {
+public struct SingleLinkedList<Value> {
     
-    public var head: Node<Value>?
-    public var tail: Node<Value>?
+    public var head: SingleNode<Value>?
+    public var tail: SingleNode<Value>?
     
     public init() { }
     
@@ -15,7 +14,7 @@ public struct LinkedList<Value> {
     /// O(1)
     public mutating func push(_ value: Value) {
         
-        head = Node(value: value, next: head)
+        head = SingleNode(value: value, next: head)
         if tail == nil {
             tail = head
         }
@@ -29,12 +28,12 @@ public struct LinkedList<Value> {
             return
         }
         
-        tail?.next = Node(value: value)
+        tail?.next = SingleNode(value: value)
         tail = tail?.next
     }
     
     /// O(n-index)
-    public func node(at index: Int) -> Node<Value>? {
+    public func node(at index: Int) -> SingleNode<Value>? {
         var currentNode = head
         var currentIndex = 0
         
@@ -48,14 +47,14 @@ public struct LinkedList<Value> {
     
     /// O(1)
     @discardableResult
-    public mutating func insert(_ value: Value, after node: Node<Value>) -> Node<Value> {
+    public mutating func insert(_ value: Value, after node: SingleNode<Value>) -> SingleNode<Value> {
         
         guard tail !== node else {
             append(value)
             return tail!
         }
         
-        node.next = Node(value: value, next: node.next) // 파라미터 node의 다음 node를 새로 만들고 next node는 파라미터 node의 next node로 바꿔준다.
+        node.next = SingleNode(value: value, next: node.next) // 파라미터 node의 다음 node를 새로 만들고 next node는 파라미터 node의 next node로 바꿔준다.
         return node.next! // insert 된 Node.
     }
     
@@ -85,7 +84,7 @@ public struct LinkedList<Value> {
             return pop()
         }
         
-        var prev: Node<Value>?
+        var prev: SingleNode<Value>?
         var current = head
         
         while let next = current.next {
@@ -100,7 +99,7 @@ public struct LinkedList<Value> {
     
     /// O(1)
     @discardableResult
-    public mutating func remove(after node: Node<Value>) -> Value? {
+    public mutating func remove(after node: SingleNode<Value>) -> Value? {
         
         guard let node = copyNodes(returningCopyOf: node) else { return nil }
         
@@ -119,11 +118,11 @@ public struct LinkedList<Value> {
             return
         }
         
-        head = Node(value: oldNode.value)
+        head = SingleNode(value: oldNode.value)
         var newNode = head
         
         while let nextOldNode = oldNode.next {
-            newNode!.next = Node(value: nextOldNode.value)
+            newNode!.next = SingleNode(value: nextOldNode.value)
             newNode = newNode!.next
             
             oldNode = nextOldNode
@@ -132,7 +131,7 @@ public struct LinkedList<Value> {
         tail = newNode
     }
     
-    private mutating func copyNodes(returningCopyOf node: Node<Value>?) -> Node<Value>? {
+    private mutating func copyNodes(returningCopyOf node: SingleNode<Value>?) -> SingleNode<Value>? {
         
         guard !isKnownUniquelyReferenced(&head) else {
             return nil
@@ -142,16 +141,16 @@ public struct LinkedList<Value> {
             return nil
         }
         
-        head = Node(value: oldNode.value)
+        head = SingleNode(value: oldNode.value)
         var newNode = head
-        var nodeCopy: Node<Value>?
+        var nodeCopy: SingleNode<Value>?
         
         while let nextOldNode = oldNode.next {
             if oldNode === node {
                 nodeCopy = newNode
             }
             
-            newNode!.next = Node(value: nextOldNode.value)
+            newNode!.next = SingleNode(value: nextOldNode.value)
             newNode = newNode!.next
             
             oldNode = nextOldNode
@@ -161,7 +160,7 @@ public struct LinkedList<Value> {
     }
 }
 
-extension LinkedList: CustomStringConvertible {
+extension SingleLinkedList: CustomStringConvertible {
     
     public var description: String {
         guard let head = head else {
@@ -172,7 +171,7 @@ extension LinkedList: CustomStringConvertible {
     }
 }
 
-extension LinkedList: Collection {
+extension SingleLinkedList: Collection {
     
     public var startIndex: Index {
         Index(node: head)
@@ -192,7 +191,7 @@ extension LinkedList: Collection {
     
     public struct Index: Comparable {
         
-        public var node: Node<Value>?
+        public var node: SingleNode<Value>?
         
         static public func ==(lhs: Index, rhs: Index) -> Bool {
             switch (lhs.node, rhs.node) {
