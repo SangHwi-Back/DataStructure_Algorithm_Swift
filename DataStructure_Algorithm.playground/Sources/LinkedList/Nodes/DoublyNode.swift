@@ -1,6 +1,6 @@
 import Foundation
 
-public final class DoublyNode<Value>: Node<Value> {
+public final class DoublyNode<Value>: CommonNode<Value> {
     public var prev: DoublyNode<Value>?
     public var next: DoublyNode<Value>?
     

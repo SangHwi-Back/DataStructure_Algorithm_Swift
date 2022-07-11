@@ -2,8 +2,10 @@ import Foundation
 
 public struct SingleLinkedList<Value> {
     
-    public var head: SingleNode<Value>?
-    public var tail: SingleNode<Value>?
+    public typealias Node = SingleNode<Value>
+    
+    public var head: Node?
+    public var tail: Node?
     
     public init() { }
     
@@ -14,7 +16,7 @@ public struct SingleLinkedList<Value> {
     /// O(1)
     public mutating func push(_ value: Value) {
         
-        head = SingleNode(value: value, next: head)
+        head = Node(value: value, next: head)
         if tail == nil {
             tail = head
         }
@@ -28,12 +30,12 @@ public struct SingleLinkedList<Value> {
             return
         }
         
-        tail?.next = SingleNode(value: value)
+        tail?.next = Node(value: value)
         tail = tail?.next
     }
     
     /// O(n-index)
-    public func node(at index: Int) -> SingleNode<Value>? {
+    public func node(at index: Int) -> Node? {
         var currentNode = head
         var currentIndex = 0
         
@@ -47,14 +49,14 @@ public struct SingleLinkedList<Value> {
     
     /// O(1)
     @discardableResult
-    public mutating func insert(_ value: Value, after node: SingleNode<Value>) -> SingleNode<Value> {
+    public mutating func insert(_ value: Value, after node: Node) -> Node {
         
         guard tail !== node else {
             append(value)
             return tail!
         }
         
-        node.next = SingleNode(value: value, next: node.next) // 파라미터 node의 다음 node를 새로 만들고 next node는 파라미터 node의 next node로 바꿔준다.
+        node.next = Node(value: value, next: node.next) // 파라미터 node의 다음 node를 새로 만들고 next node는 파라미터 node의 next node로 바꿔준다.
         return node.next! // insert 된 Node.
     }
     
@@ -84,7 +86,7 @@ public struct SingleLinkedList<Value> {
             return pop()
         }
         
-        var prev: SingleNode<Value>?
+        var prev: Node?
         var current = head
         
         while let next = current.next {
@@ -99,7 +101,7 @@ public struct SingleLinkedList<Value> {
     
     /// O(1)
     @discardableResult
-    public mutating func remove(after node: SingleNode<Value>) -> Value? {
+    public mutating func remove(after node: Node) -> Value? {
         
         guard let node = copyNodes(returningCopyOf: node) else { return nil }
         
@@ -118,11 +120,11 @@ public struct SingleLinkedList<Value> {
             return
         }
         
-        head = SingleNode(value: oldNode.value)
+        head = Node(value: oldNode.value)
         var newNode = head
         
         while let nextOldNode = oldNode.next {
-            newNode!.next = SingleNode(value: nextOldNode.value)
+            newNode!.next = Node(value: nextOldNode.value)
             newNode = newNode!.next
             
             oldNode = nextOldNode
@@ -131,7 +133,7 @@ public struct SingleLinkedList<Value> {
         tail = newNode
     }
     
-    private mutating func copyNodes(returningCopyOf node: SingleNode<Value>?) -> SingleNode<Value>? {
+    private mutating func copyNodes(returningCopyOf node: Node?) -> Node? {
         
         guard !isKnownUniquelyReferenced(&head) else {
             return nil
@@ -141,16 +143,16 @@ public struct SingleLinkedList<Value> {
             return nil
         }
         
-        head = SingleNode(value: oldNode.value)
+        head = Node(value: oldNode.value)
         var newNode = head
-        var nodeCopy: SingleNode<Value>?
+        var nodeCopy: Node?
         
         while let nextOldNode = oldNode.next {
             if oldNode === node {
                 nodeCopy = newNode
             }
             
-            newNode!.next = SingleNode(value: nextOldNode.value)
+            newNode!.next = Node(value: nextOldNode.value)
             newNode = newNode!.next
             
             oldNode = nextOldNode
@@ -191,7 +193,7 @@ extension SingleLinkedList: Collection {
     
     public struct Index: Comparable {
         
-        public var node: SingleNode<Value>?
+        public var node: Node?
         
         static public func ==(lhs: Index, rhs: Index) -> Bool {
             switch (lhs.node, rhs.node) {

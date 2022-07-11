@@ -1,6 +1,6 @@
 import Foundation
 
-public class Node<Value> {
+public class CommonNode<Value> {
     public let value: Value
     
     public init(value: Value) {
