@@ -14,18 +14,19 @@ public final class DoublyNode<Value>: CommonNode<Value> {
 extension DoublyNode: CustomStringConvertible {
     
     public var description: String {
-        var result = ""
-        
-        if let prev = prev {
-            result += "\(prev.value)"
-        }
-        
-        result += "\(result.isEmpty ? "" : " -> ") \(value)"
-        
-        if let next = next {
-            result += " -> \(next.value)"
-        }
-        
-        return result
+//        var result = ""
+//
+//        if let prev = prev {
+//            result += "\(prev.value)"
+//        }
+//
+//        result += "\(result.isEmpty ? "" : " -> ") \(value)"
+//
+//        if let next = next {
+//            result += " -> \(next.value)"
+//        }
+//
+//        return result
+        String(describing: value)
     }
 }

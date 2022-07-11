@@ -1,7 +1,7 @@
 import Foundation
 
 // 원형 연결 리스트
-public struct DoublyLinkedList<Value> {
+public struct DoublyLinkedList<Value: Equatable> {
     
     public typealias Node = DoublyNode<Value>
     
@@ -14,21 +14,29 @@ public struct DoublyLinkedList<Value> {
         head == nil
     }
     
+    public var first: Node? {
+        head
+    }
+    
     public mutating func push(_ value: Value) {
         head = Node(value: value, next: head)
         if tail == nil {
-            head = tail
+            tail = head
         }
     }
     
     public mutating func append(_ value: Value) {
-        guard isEmpty == false else {
-            push(value)
+        let newNode = Node(value: value)
+        
+        guard let tailNode = tail else {
+            head = newNode
+            tail = newNode
             return
         }
         
-        tail?.next = Node(prev: tail, value: value)
-        tail = tail?.next
+        newNode.prev = tailNode
+        tailNode.next = newNode
+        tail = newNode
     }
     
     public func node(at index: Int) -> Node? {
@@ -94,6 +102,24 @@ public struct DoublyLinkedList<Value> {
         return node.next?.value
     }
     
+    public mutating func remove(_ element: Value) -> Value? {
+        
+        guard head?.value != element else {
+            return pop()
+        }
+        
+        var current = head
+        while let node = current?.next {
+            if node.value == element, let current = current {
+                return remove(after: current)
+            }
+            
+            current = node
+        }
+        
+        return nil
+    }
+    
     private mutating func copyNodes() {
         guard var oldNode = head else {
             return
@@ -139,6 +165,21 @@ public struct DoublyLinkedList<Value> {
         
         return nodeCopy
     }
+    
+    func count() -> Int {
+        guard head == nil else {
+            return 0
+        }
+        
+        var current = head
+        var result = 1
+        while let node = current?.next {
+            current = node
+            result += 1
+        }
+        
+        return result
+    }
 }
 
 extension DoublyLinkedList: CustomStringConvertible {
@@ -148,7 +189,15 @@ extension DoublyLinkedList: CustomStringConvertible {
             return "Empty List"
         }
         
-        return String(describing: head)
+        var current = head
+        var result = "\(current.value)"
+        while let node = current.next {
+            result += " -> "
+            result += "\(node.value)"
+            current = node
+        }
+        
+        return result
     }
 }
 
