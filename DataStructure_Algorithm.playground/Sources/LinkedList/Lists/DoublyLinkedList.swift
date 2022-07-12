@@ -26,17 +26,13 @@ public struct DoublyLinkedList<Value: Equatable> {
     }
     
     public mutating func append(_ value: Value) {
-        let newNode = Node(value: value)
-        
-        guard let tailNode = tail else {
-            head = newNode
-            tail = newNode
+        guard isEmpty == false else {
+            push(value)
             return
         }
         
-        newNode.prev = tailNode
-        tailNode.next = newNode
-        tail = newNode
+        tail?.next = Node(prev: tail, value: value)
+        tail = tail?.next
     }
     
     public func node(at index: Int) -> Node? {
@@ -167,7 +163,7 @@ public struct DoublyLinkedList<Value: Equatable> {
     }
     
     func count() -> Int {
-        guard head == nil else {
+        guard head != nil else {
             return 0
         }
         

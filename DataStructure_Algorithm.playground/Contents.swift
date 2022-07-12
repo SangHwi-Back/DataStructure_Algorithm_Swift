@@ -21,4 +21,3 @@ print(queueLinkedList)
 print(queueLinkedList.dequeue()!)
 print(queueLinkedList.count())
 print(queueLinkedList)
-
