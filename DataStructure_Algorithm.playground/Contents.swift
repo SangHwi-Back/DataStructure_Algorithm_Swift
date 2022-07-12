@@ -33,3 +33,15 @@ print(queueRingBuffer)
 print(queueRingBuffer.dequeue())
 print(queueRingBuffer)
 print(queueRingBuffer.peek)
+
+print("-------")
+
+var queueStack = QueueStack<String>()
+
+queueStack.enqueue("Ray")
+queueStack.enqueue("Brian")
+queueStack.enqueue("Eric")
+print(queueStack)
+print(queueStack.dequeue())
+print(queueStack)
+print(queueStack.peek)
