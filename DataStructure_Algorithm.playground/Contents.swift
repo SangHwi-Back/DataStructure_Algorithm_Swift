@@ -21,3 +21,15 @@ print(queueLinkedList)
 print(queueLinkedList.dequeue()!)
 print(queueLinkedList.count())
 print(queueLinkedList)
+
+print("-------")
+
+var queueRingBuffer = QueueRingBuffer<String>(count: 10)
+
+queueRingBuffer.enqueue("Ray")
+queueRingBuffer.enqueue("Brian")
+queueRingBuffer.enqueue("Eric")
+print(queueRingBuffer)
+print(queueRingBuffer.dequeue())
+print(queueRingBuffer)
+print(queueRingBuffer.peek)

@@ -6,6 +6,7 @@ import Foundation
  dequeue 하면 read 포인터가 dequeue 한 만큼 이동한다.
  정해진 버퍼 크기 만큼 enqueue 하면 write 포인터가 원점으로 돌아간다.
  정해진 버퍼 크기 만큼 dequeue 하면 read 포인터가 원점으로 돌아간다.
+ RingBuffer도 isEmpty가 있다. read, write 포인터가 같은 인덱스에 위치하면 isEmpty는 true 이다.
  */
 
 public struct RingBuffer<T> {
