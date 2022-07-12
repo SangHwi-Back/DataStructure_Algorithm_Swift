@@ -1,5 +1,13 @@
 import Foundation
 
+/**
+ read, write 포인터를 둔다. 처음에는 둘 다 같은 Index에 위치한다. 버퍼의 크기는 정해져 있다.
+ enqueue 하면 wrtie 포인터가 enqueue 한 만큼 이동한다.
+ dequeue 하면 read 포인터가 dequeue 한 만큼 이동한다.
+ 정해진 버퍼 크기 만큼 enqueue 하면 write 포인터가 원점으로 돌아간다.
+ 정해진 버퍼 크기 만큼 dequeue 하면 read 포인터가 원점으로 돌아간다.
+ */
+
 public struct RingBuffer<T> {
     private var array: [T?]
     private var readIndex = 0
