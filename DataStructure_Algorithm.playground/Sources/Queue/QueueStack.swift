@@ -35,3 +35,11 @@ extension QueueStack: CustomStringConvertible {
         String(describing: leftStack.reversed() + rightStack)
     }
 }
+
+/**
+ |Operations|Average Case|Worst case|
+ |---|---|---|
+ |enqueue|O(1)|O(n)|
+ |dequeue|O(1)|O(n)|
+ |Space Complexity|O(n)|O(n)|
+ */

@@ -36,3 +36,11 @@ extension QueueLinkedList: CustomStringConvertible {
         String(describing: list)
     }
 }
+
+/**
+ |Operations|Average Case|Worst case|
+ |---|---|---|
+ |enqueue|O(1)|O(1)|
+ |dequeue|O(1)|O(1)|
+ |Space Complexity|O(n)|O(n)|
+ */
