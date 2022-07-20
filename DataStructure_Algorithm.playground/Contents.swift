@@ -1,47 +1,32 @@
 import Foundation
 
-var queueArray = QueueArray<String>()
+//printPlayer()
+//var queueArr = QueueArray<String>()
+//
+//queueArr.enqueue("1")
+//queueArr.enqueue("2")
+//queueArr.enqueue("3")
+//queueArr.enqueue("4")
+//queueArr.enqueue("5")
+//
+//print(queueArr)
+//print(queueArr.reversed())
 
-queueArray.enqueue("Ray")
-queueArray.enqueue("Brian")
-queueArray.enqueue("Eric")
-print(queueArray)
-queueArray.dequeue()
-print(queueArray)
-print(queueArray.peek!)
+var queueDouble1 = DoubleQueueLinkedList<String>()
 
-print("-------")
+queueDouble1.enqueue("5", to: .front)
+queueDouble1.enqueue("4", to: .front)
+queueDouble1.enqueue("3", to: .front)
+queueDouble1.enqueue("2", to: .front)
+queueDouble1.enqueue("1", to: .front)
 
-var queueLinkedList = QueueLinkedList<String>()
+var queueDouble2 = DoubleQueueLinkedList<String>()
 
-queueLinkedList.enqueue("Ray")
-queueLinkedList.enqueue("Brian")
-queueLinkedList.enqueue("Eric")
-print(queueLinkedList)
-print(queueLinkedList.dequeue()!)
-print(queueLinkedList.count())
-print(queueLinkedList)
+queueDouble2.enqueue("1", to: .back)
+queueDouble2.enqueue("2", to: .back)
+queueDouble2.enqueue("3", to: .back)
+queueDouble2.enqueue("4", to: .back)
+queueDouble2.enqueue("5", to: .back)
 
-print("-------")
-
-var queueRingBuffer = QueueRingBuffer<String>(count: 10)
-
-queueRingBuffer.enqueue("Ray")
-queueRingBuffer.enqueue("Brian")
-queueRingBuffer.enqueue("Eric")
-print(queueRingBuffer)
-print(queueRingBuffer.dequeue())
-print(queueRingBuffer)
-print(queueRingBuffer.peek)
-
-print("-------")
-
-var queueStack = QueueStack<String>()
-
-queueStack.enqueue("Ray")
-queueStack.enqueue("Brian")
-queueStack.enqueue("Eric")
-print(queueStack)
-print(queueStack.dequeue())
-print(queueStack)
-print(queueStack.peek)
+print(queueDouble1)
+print(queueDouble2)

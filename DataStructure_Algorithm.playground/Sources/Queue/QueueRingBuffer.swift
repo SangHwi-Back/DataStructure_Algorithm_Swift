@@ -16,6 +16,7 @@ public struct QueueRingBuffer<T>: Queue {
         ringBuffer.first
     }
     
+    @discardableResult
     public mutating func enqueue(_ element: T) -> Bool {
         ringBuffer.write(element)
     }

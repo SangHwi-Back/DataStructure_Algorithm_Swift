@@ -15,6 +15,7 @@ public struct QueueArray<T>: Queue { // 컴파일러가 T를 Element로 타입�
     }
     
     /// O(1) - If memory allocated for array is full, O(n).
+    @discardableResult
     public mutating func enqueue(_ element: T) -> Bool {
         array.append(element)
         return true

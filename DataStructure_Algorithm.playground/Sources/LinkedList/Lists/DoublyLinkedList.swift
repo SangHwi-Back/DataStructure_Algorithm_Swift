@@ -18,6 +18,14 @@ public struct DoublyLinkedList<Value: Equatable> {
         head
     }
     
+    public var last: Node? {
+        tail
+    }
+    
+    public mutating func prepend(_ value: Value) {
+        push(value)
+    }
+    
     public mutating func push(_ value: Value) {
         head = Node(value: value, next: head)
         if tail == nil {
