@@ -1,23 +1,12 @@
 import Foundation
 
-public class QueueLinkedList<T: Equatable>: DoublyQueue {
-    private var list = DoublyLinkedList<T>()
+public class QueueLinkedList<T: Equatable>: Queue {
+    private var list = SingleLinkedList<T>()
     public init() { }
     
     /// O(1)
     public func enqueue(_ element: T) -> Bool {
         list.append(element)
-        return true
-    }
-    
-    /// O(1)
-    public func enqueue(_ element: T, direction: Direction = .back) -> Bool {
-        switch direction {
-        case .front:
-            list.prepend(element)
-        case .back:
-            list.append(element)
-        }
         return true
     }
     
@@ -39,11 +28,11 @@ public class QueueLinkedList<T: Equatable>: DoublyQueue {
     }
     
     public var peek: T? {
-        list.first?.value
+        list.head?.value
     }
     
     public var last: T? {
-        list.last?.value
+        list.tail?.value
     }
     
     public var isEmpty: Bool {
@@ -51,7 +40,7 @@ public class QueueLinkedList<T: Equatable>: DoublyQueue {
     }
     
     public func count() -> Int {
-        list.count()
+        list.count
     }
 }
 

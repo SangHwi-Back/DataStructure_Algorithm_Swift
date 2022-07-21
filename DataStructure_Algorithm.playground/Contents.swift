@@ -1,15 +1,15 @@
 import Foundation
 
 //printPlayer()
-//var queueArr = QueueArray<String>()
-//
-//queueArr.enqueue("1")
-//queueArr.enqueue("2")
-//queueArr.enqueue("3")
-//queueArr.enqueue("4")
-//queueArr.enqueue("5")
-//
-//print(queueArr)
+var queueArr = QueueLinkedList<String>()
+
+queueArr.enqueue("1")
+queueArr.enqueue("2")
+queueArr.enqueue("3")
+queueArr.enqueue("4")
+queueArr.enqueue("5")
+
+print(queueArr)
 //print(queueArr.reversed())
 
 var queueDouble1 = DoubleQueueLinkedList<String>()
