@@ -36,9 +36,13 @@ tea.add(chaiTea)
 soda.add(gingerAle)
 soda.add(bitterLemon)
 
-tree.forEachDepthFirst {
-    print($0.value)
+if let searchResult = tree.search("ginger ale") {
+    print("Found node: \(searchResult.value)")
 }
-tree.forEachLevelOrder {
-    print($0.value)
+
+if let searchResult2 = tree.search("WKD Blue") {
+    print("Found node: \(searchResult2.value)")
+} else {
+    print("Couldn't find WKD Blue")
 }
+
