@@ -8,29 +8,23 @@ public class TreeNode<T>: CommonNode<T> {
     }
 }
 
-extension TreeNode: CustomStringConvertible {
-    public var description: String {
-        var result = "\(value)"
-        let children = children
-        
-        let resultCount = result.count
-        
-        if let first = children.first {
-            result += " -> \(first.value)"
-            
-            if first.children.isEmpty == false {
-                result += first.description
-            }
+extension TreeNode {
+    /// 깊이 우선 순회
+    public func forEachDepthFirst(visit: (TreeNode)->Void) {
+        visit(self)
+        children.forEach {
+            $0.forEachDepthFirst(visit: visit)
         }
-        
-        if let last = children.last {
-            result += "\n\([String](repeating: " ", count: resultCount).reduce("", +))    \(last.value)"
-            
-            if last.children.isEmpty == false {
-                result += last.description
-            }
+    }
+    
+    /// 단계별 순회
+    public func forEachLevelOrder(visit: (TreeNode)->Void) {
+        visit(self)
+        var queue = QueueArray<TreeNode>()
+        children.forEach { queue.enqueue($0) }
+        while let node = queue.dequeue() {
+            visit(node)
+            node.children.forEach { queue.enqueue($0) }
         }
-        
-        return result
     }
 }
