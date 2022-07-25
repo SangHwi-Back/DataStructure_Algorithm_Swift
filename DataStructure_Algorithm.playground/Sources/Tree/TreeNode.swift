@@ -10,7 +10,7 @@ public class TreeNode<T>: CommonNode<T> {
         children.append(child)
     }
     
-    init(value: T, parent: TreeNode<T>? = nil) {
+    public init(value: T, parent: TreeNode<T>? = nil) {
         self.parent = parent
         super.init(value: value)
     }
