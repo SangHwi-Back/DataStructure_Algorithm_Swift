@@ -1,48 +1,22 @@
 import Foundation
 
-let tree = TreeNode(value: "Beverages")
+let root = TreeNode(value: 15)
 
-let hot = TreeNode(value: "hot")
-let cold = TreeNode(value: "cold")
+let nodeOne = TreeNode(value: 1)
+let nodeSeventeen = TreeNode(value: 17)
+let nodeTwenty = TreeNode(value: 20)
 
-let tea = TreeNode(value: "tea")
-let coffee = TreeNode(value: "coffee")
-let chocolate = TreeNode(value: "cocoa")
+root.add(nodeOne)
+root.add(nodeSeventeen)
+root.add(nodeTwenty)
 
-let blackTea = TreeNode(value: "black")
-let greenTea = TreeNode(value: "green")
-let chaiTea = TreeNode(value: "chai")
+nodeOne.add(TreeNode(value: 1))
+nodeOne.add(TreeNode(value: 5))
+nodeOne.add(TreeNode(value: 0))
 
-let soda = TreeNode(value: "soda")
-let milk = TreeNode(value: "milk")
+nodeSeventeen.add(TreeNode(value: 2))
 
-let gingerAle = TreeNode(value: "ginger ale")
-let bitterLemon = TreeNode(value: "bitter lemon")
+nodeTwenty.add(TreeNode(value: 5))
+nodeTwenty.add(TreeNode(value: 7))
 
-tree.add(hot)
-tree.add(cold)
-
-hot.add(tea)
-hot.add(coffee)
-hot.add(chocolate)
-
-cold.add(soda)
-cold.add(milk)
-
-tea.add(blackTea)
-tea.add(greenTea)
-tea.add(chaiTea)
-
-soda.add(gingerAle)
-soda.add(bitterLemon)
-
-if let searchResult = tree.search("ginger ale") {
-    print("Found node: \(searchResult.value)")
-}
-
-if let searchResult2 = tree.search("WKD Blue") {
-    print("Found node: \(searchResult2.value)")
-} else {
-    print("Couldn't find WKD Blue")
-}
-
+print(nodeOne)
