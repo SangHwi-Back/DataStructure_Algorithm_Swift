@@ -18,3 +18,9 @@ var tree: BinaryNode<Int> = {
 }()
 
 print(tree)
+print("---------------")
+tree.traverseInOrder(visit: { print($0) })
+print("---------------")
+tree.traversePreOrder(visit: { print($0) })
+print("---------------")
+tree.traversePostOrder(visit: { print($0) })

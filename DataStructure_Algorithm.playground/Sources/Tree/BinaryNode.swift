@@ -28,3 +28,23 @@ extension BinaryNode: CustomStringConvertible {
         + diagram(for: node.leftChild, bottom + "| ", bottom + "└──", bottom + " ")
     }
 }
+
+extension BinaryNode {
+    public func traverseInOrder(visit: (Element) -> Void) {
+        leftChild?.traverseInOrder(visit: visit)
+        visit(value)
+        rightChild?.traverseInOrder(visit: visit)
+    }
+    
+    public func traversePreOrder(visit: (Element) -> Void) {
+        visit(value)
+        leftChild?.traversePreOrder(visit: visit)
+        rightChild?.traversePreOrder(visit: visit)
+    }
+    
+    public func traversePostOrder(visit: (Element) -> Void) {
+        leftChild?.traversePreOrder(visit: visit)
+        rightChild?.traversePreOrder(visit: visit)
+        visit(value)
+    }
+}
