@@ -24,3 +24,8 @@ print("---------------")
 tree.traversePreOrder(visit: { print($0) })
 print("---------------")
 tree.traversePostOrder(visit: { print($0) })
+print("---------------")
+print("height is \(tree.height())")
+print("---------------")
+print(tree.serialization())
+
