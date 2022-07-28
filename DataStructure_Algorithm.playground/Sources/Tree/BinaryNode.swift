@@ -78,10 +78,10 @@ extension BinaryNode {
 }
 
 /// BinaryTree Deserialize
-public func deserialize<T>(_ array: inout [T?]) -> BinaryNode<T>? { // Solution of Challenge
+func deserialize<T>(_ array: inout [T?]) -> BinaryNode<T>? { // Solution of Challenge
     
     // 2
-    guard let value = array.removeFirst() else {
+    guard !array.isEmpty, let value = array.removeLast() else {
         return nil
     }
     
@@ -90,6 +90,11 @@ public func deserialize<T>(_ array: inout [T?]) -> BinaryNode<T>? { // Solution 
     node.leftChild = deserialize(&array)
     node.rightChild = deserialize(&array)
     return node
+}
+
+public func deserialize<T>(_ array: [T?]) -> BinaryNode<T>? {
+    var reversed = Array(array.reversed())
+    return deserialize(&reversed)
 }
 
 extension Array {
