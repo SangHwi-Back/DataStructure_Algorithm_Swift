@@ -70,39 +70,35 @@ extension BinaryNode {
         return 1 + max(height(of: node.leftChild), height(of: node.rightChild))
     }
     
-    public func serialize(_ node: BinaryNode<Element>) -> [Element?] {
-        var array: [Element?] = []
-        node.traversePreOrder { array.append($0) }
-        return array
-    }
-    
-    public func serialize() -> [Element?] {
+    public func serialize() -> [Element?] { // Solution of Challenge
         var array: [Element?] = []
         self.traversePreOrder { array.append($0) }
         return array
     }
 }
 
-extension Array {
-    public func deserialize<T>(_ array: inout [T?]) -> BinaryNode<T>? {
-
-        guard let value = array.removeFirst() else {
-            return nil
-        }
-
-        let node = BinaryNode<T>(value: value)
-        node.leftChild = deserialize(&array)
-        node.rightChild = deserialize(&array)
-        return node
+/// BinaryTree Deserialize
+public func deserialize<T>(_ array: inout [T?]) -> BinaryNode<T>? { // Solution of Challenge
+    
+    // 2
+    guard let value = array.removeFirst() else {
+        return nil
     }
     
-    public mutating func deserialize() -> BinaryNode<Element>? {
-        
-        guard self.isEmpty == false else {
+    // 3
+    let node = BinaryNode(value: value)
+    node.leftChild = deserialize(&array)
+    node.rightChild = deserialize(&array)
+    return node
+}
+
+extension Array {
+    public mutating func deserialize<T>() -> BinaryNode<T>? where Element == T? {
+        guard let value = self.removeFirst() else {
             return nil
         }
         
-        let node = BinaryNode<Element>(value: self.removeFirst())
+        let node = BinaryNode<T>(value: value)
         node.leftChild = self.deserialize()
         node.rightChild = self.deserialize()
         return node
@@ -150,5 +146,21 @@ extension BinaryNode {
         leftChild?.traversePostOrder(visit: visit)
         rightChild?.traversePostOrder(visit: visit)
         visit(value)
+    }
+}
+
+extension BinaryNode {
+    public func traversePreOrder(visit: (Element?) -> Void ) {
+        visit(value)
+        if let leftChild = leftChild {
+            leftChild.traversePreOrder(visit: visit)
+        } else {
+            visit(nil)
+        }
+        if let rightChild = rightChild {
+            rightChild.traversePreOrder(visit: visit)
+        } else {
+            visit(nil)
+        }
     }
 }
