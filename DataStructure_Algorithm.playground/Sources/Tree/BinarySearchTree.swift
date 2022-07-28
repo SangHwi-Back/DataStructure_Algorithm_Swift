@@ -27,6 +27,27 @@ extension BinarySearchTree {
     }
 }
 
+extension BinarySearchTree {
+    public func contains(_ value: Element) -> Bool {
+        var current = root
+        
+        while let node = current {
+            
+            if node.value == value {
+                return true
+            }
+            
+            if value < node.value {
+                current = node.leftChild
+            } else {
+                current = node.rightChild
+            }
+        }
+        
+        return false
+    }
+}
+
 extension BinarySearchTree where Element == Int {
     static public func getTestTree() -> BinarySearchTree {
         var bst = BinarySearchTree<Int>()
