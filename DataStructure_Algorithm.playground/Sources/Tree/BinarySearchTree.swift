@@ -1,5 +1,53 @@
 import Foundation
 
+public struct BinarySearchTree<Element: Comparable> { // Comparable 은 == 함수를 구현하는 것으로도 대체 가능.
+    
+    public private(set) var root: BinaryNode<Element>?
+    
+    public init() {}
+}
+
+extension BinarySearchTree {
+    public mutating func insert(_ value: Element) {
+        root = insert(from: root, value: value)
+    }
+    
+    private func insert(from node: BinaryNode<Element>?, value: Element) -> BinaryNode<Element> {
+        guard let node = node else { // 이전에 지나친 노드가 Leaf 였습니다.
+            return BinaryNode(value: value)
+        }
+        
+        if value < node.value { // Thanks for Comparable.
+            node.leftChild = insert(from: node.leftChild, value: value)
+        } else {
+            node.rightChild = insert(from: node.rightChild, value: value)
+        }
+        
+        return node
+    }
+}
+
+extension BinarySearchTree where Element == Int {
+    static public func getTestTree() -> BinarySearchTree {
+        var bst = BinarySearchTree<Int>()
+        bst.insert(3)
+        bst.insert(1)
+        bst.insert(4)
+        bst.insert(0)
+        bst.insert(2)
+        bst.insert(5)
+        return bst
+    }
+}
+
+extension BinarySearchTree: CustomStringConvertible {
+    
+    public var description: String {
+        guard let root = root else { return "empty tree" }
+        return String(describing: root)
+    }
+}
+
 /**
  Case Study #1 : array vs BST
  
