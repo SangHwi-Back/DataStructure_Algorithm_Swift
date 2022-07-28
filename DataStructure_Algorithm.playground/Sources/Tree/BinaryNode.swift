@@ -42,6 +42,73 @@ public class BinaryNode<Element>: CommonNode<Element> {
     }
 }
 
+extension BinaryNode where Element == Int {
+    public static func getTestTree() -> BinaryNode {
+        let zero = BinaryNode(value: 0)
+        let one = BinaryNode(value: 1)
+        let five = BinaryNode(value: 5)
+        let seven = BinaryNode(value: 7)
+        let eight = BinaryNode(value: 8)
+        let nine = BinaryNode(value: 9)
+
+        seven.leftChild = one
+        one.leftChild = zero
+        one.rightChild = five
+        seven.rightChild = nine
+        nine.leftChild = eight
+
+        return seven
+    }
+}
+
+extension BinaryNode {
+    public func height<T>(of node: BinaryNode<T>?) -> Int {
+        guard let node = node else {
+            return -1
+        }
+        
+        return 1 + max(height(of: node.leftChild), height(of: node.rightChild))
+    }
+    
+    public func serialize(_ node: BinaryNode<Element>) -> [Element?] {
+        var array: [Element?] = []
+        node.traversePreOrder { array.append($0) }
+        return array
+    }
+    
+    public func serialize() -> [Element?] {
+        var array: [Element?] = []
+        self.traversePreOrder { array.append($0) }
+        return array
+    }
+}
+
+extension Array {
+    public func deserialize<T>(_ array: inout [T?]) -> BinaryNode<T>? {
+
+        guard let value = array.removeFirst() else {
+            return nil
+        }
+
+        let node = BinaryNode<T>(value: value)
+        node.leftChild = deserialize(&array)
+        node.rightChild = deserialize(&array)
+        return node
+    }
+    
+    public mutating func deserialize() -> BinaryNode<Element>? {
+        
+        guard self.isEmpty == false else {
+            return nil
+        }
+        
+        let node = BinaryNode<Element>(value: self.removeFirst())
+        node.leftChild = self.deserialize()
+        node.rightChild = self.deserialize()
+        return node
+    }
+}
+
 extension BinaryNode: CustomStringConvertible {
     public var description: String {
         diagram(for: self)
@@ -80,8 +147,8 @@ extension BinaryNode {
     }
     
     public func traversePostOrder(visit: (Element) -> Void) {
-        leftChild?.traversePreOrder(visit: visit)
-        rightChild?.traversePreOrder(visit: visit)
+        leftChild?.traversePostOrder(visit: visit)
+        rightChild?.traversePostOrder(visit: visit)
         visit(value)
     }
 }
