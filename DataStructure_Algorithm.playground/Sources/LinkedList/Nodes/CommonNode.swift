@@ -4,7 +4,7 @@ public class CommonNode<Value>: Equatable {
     
     private let id = UUID()
     
-    public let value: Value
+    public var value: Value
     
     public init(value: Value) {
         self.value = value

@@ -37,14 +37,56 @@ extension BinarySearchTree {
                 return true
             }
             
-            if value < node.value {
-                current = node.leftChild
-            } else {
-                current = node.rightChild
-            }
+            current = (node.value > value ? node.leftChild : node.rightChild)
         }
         
         return false
+    }
+}
+
+// 두 개의 자식 노드를 가진 노드를 지울 때는 다른 노드와 교체해 주어야 한다.
+// 먼저 오른쪽 자식 노드로 이동한 다음에 왼쪽으로만 이동해서 나오는 Leaf 노드를 끌고와서 교체해준다.
+private extension BinaryNode {
+    var min: BinaryNode {
+        leftChild?.min ?? self
+    }
+}
+
+extension BinarySearchTree {
+    public mutating func remove(_ value: Element) {
+        root = remove(node: root, value: value)
+    }
+    
+    private func remove(node: BinaryNode<Element>?, value: Element) -> BinaryNode<Element>? {
+        guard let node = node else {
+            return nil
+        }
+        
+        if value == node.value {
+            
+            if node.leftChild == nil && node.rightChild == nil { // 자식 노드 없음
+                return nil
+            }
+            
+            if node.leftChild == nil { // 오른쪽 자식 노드 없음. 자식 노드 하나.
+                return node.rightChild
+            }
+            
+            if node.rightChild == nil { // 왼쪽 자식 노드 없음. 자식 노드 하나.
+                return node.leftChild
+            }
+            
+            // rightChild에 rightChild가 지워진 노드를 반환하도록 다시 remove 를 호출한다.
+            node.value = node.rightChild!.min.value
+            node.rightChild = remove(node: node.rightChild, value: node.value)
+            
+        } else if value < node.value {
+            node.leftChild = remove(node: node.leftChild, value: value)
+        } else {
+            node.rightChild = remove(node: node.rightChild, value: value)
+        }
+        
+        return node
     }
 }
 
