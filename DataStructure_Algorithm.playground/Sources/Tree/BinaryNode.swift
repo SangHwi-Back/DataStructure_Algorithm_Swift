@@ -46,6 +46,26 @@ public class BinaryNode<Element: Equatable> {
             visitChild(from: rightChild, as: &serialized)
         }
     }
+    
+    // 1. Binary tree or binary search tree
+    public func isBinarySearch() -> Bool where Element: Comparable {
+        guard let leftChild = self.leftChild else {
+            return false
+        }
+        
+        if let rightChild = self.rightChild, leftChild.value <= rightChild.value, self.value <= rightChild.value {
+            return true
+        }
+        
+        return false
+    }
+}
+
+extension BinaryNode: Equatable {
+    public static func == (lhs: BinaryNode, rhs: BinaryNode) -> Bool {
+        print("haha")
+        return lhs.value == rhs.value && lhs.leftChild == rhs.leftChild && lhs.rightChild == rhs.rightChild
+    }
 }
 
 extension BinaryNode where Element == Int {

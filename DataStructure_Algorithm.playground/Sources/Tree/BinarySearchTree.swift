@@ -15,17 +15,8 @@ extension BinarySearchTree: Equatable {
         guard let lhsRoot = lhs.root, let rhsRoot = rhs.root else {
             return false
         }
-        var result = lhsRoot.value == rhsRoot.value
         
-        if let lhsChild = lhsRoot.leftChild, let rhsChild = rhsRoot.leftChild {
-            result = BinarySearchTree<Element>(root: lhsChild) == BinarySearchTree<Element>(root: rhsChild)
-        }
-        
-        if let lhsChild = lhsRoot.rightChild, let rhsChild = rhsRoot.rightChild {
-            result = BinarySearchTree<Element>(root: lhsChild) == BinarySearchTree<Element>(root: rhsChild)
-        }
-        
-        return result
+        return lhsRoot == rhsRoot
     }
 }
 
