@@ -135,18 +135,25 @@ extension BinaryNode: CustomStringConvertible {
 }
 
 extension BinaryNode {
+    /// left-child 를 따라 child 노드를 계속 추적하여 맨 왼쪽의 leaf 노드부터 탐색을 시작한다.
+    /// 오름차순 정렬(Ascending Order) 된 순으로 탐색을 진행한다.
     public func traverseInOrder(visit: (Element) -> Void) {
         leftChild?.traverseInOrder(visit: visit)
         visit(value)
         rightChild?.traverseInOrder(visit: visit)
     }
     
+    /// root 부터 지나오는 순서대로 탐색.
+    /// 탐색 순서는 왼쪽 우선.
     public func traversePreOrder(visit: (Element) -> Void) {
         visit(value)
         leftChild?.traversePreOrder(visit: visit)
         rightChild?.traversePreOrder(visit: visit)
     }
     
+    /// left-child 를 따라 child 노드를 계속 추적하여 맨 왼쪽의 leaf 노드부터 탐색을 시작한다.
+    /// left-child는 자신과 같은 parent 를 공유하는 right-child를 검색하고, parent로 넘어간다.
+    /// parent 다음에는 다음 node(같은 레벨)의 left-child를 검색한다.
     public func traversePostOrder(visit: (Element) -> Void) {
         leftChild?.traversePostOrder(visit: visit)
         rightChild?.traversePostOrder(visit: visit)

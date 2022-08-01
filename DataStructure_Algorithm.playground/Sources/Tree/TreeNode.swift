@@ -22,15 +22,15 @@ extension TreeNode: CustomStringConvertible {
         var children: [TreeNode]!
         
         self.forEachLevelOrder(visit: { node in
-            if children == nil {
+            if children == nil { // root 혹은 다음 레벨을 시작해야 하는 경우
                 children = node.children
                 result += "\(node.value) \n"
                 return
             }
             
-            if children.contains(node) {
+            if children.contains(node) { // 현재 level 에서 탐색하는 경우
                 result += "\(node.value) "
-            } else if let first = children.first {
+            } else if let first = children.first { // 새로운 레벨을 시작하는 경우
                 result += "\n"
                 children = children.reduce(into: [first], { partialResult, childrenNode in
                     partialResult?.append(contentsOf: childrenNode.children)
