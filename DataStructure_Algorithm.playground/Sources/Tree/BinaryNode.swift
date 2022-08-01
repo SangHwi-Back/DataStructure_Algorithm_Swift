@@ -1,8 +1,14 @@
 import Foundation
 
-public class BinaryNode<Element>: CommonNode<Element> {
+public class BinaryNode<Element: Equatable> {
+    
+    public var value: Element
     public var leftChild: BinaryNode?
     public var rightChild: BinaryNode?
+    
+    public init(value: Element) {
+        self.value = value
+    }
     
     /// distance between root to leaf.
     public func height() -> Int {

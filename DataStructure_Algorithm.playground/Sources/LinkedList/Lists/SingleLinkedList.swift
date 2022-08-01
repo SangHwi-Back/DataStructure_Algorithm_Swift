@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SingleLinkedList<Value> {
+public struct SingleLinkedList<Value: Equatable> {
     
     public typealias Node = SingleNode<Value>
     

@@ -1,11 +1,12 @@
 import Foundation
 
-public final class SingleNode<Value>: CommonNode<Value> {
+public final class SingleNode<Value: Equatable> {
+    public var value: Value
     public var next: SingleNode<Value>?
     
     public init(value: Value, next: SingleNode<Value>? = nil) {
         self.next = next
-        super.init(value: value)
+        self.value = value
     }
 }
 

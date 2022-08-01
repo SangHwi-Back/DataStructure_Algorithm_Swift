@@ -1,8 +1,9 @@
 import Foundation
 
-public class TreeNode<T>: CommonNode<T> {
+public class TreeNode<T: Equatable> {
     
     var parent: TreeNode<T>?
+    public var value: T
     
     public var children: [TreeNode] = []
     
@@ -11,8 +12,8 @@ public class TreeNode<T>: CommonNode<T> {
     }
     
     public init(value: T, parent: TreeNode<T>? = nil) {
+        self.value = value
         self.parent = parent
-        super.init(value: value)
     }
 }
 
@@ -28,7 +29,7 @@ extension TreeNode: CustomStringConvertible {
                 return
             }
             
-            if children.contains(node) { // 현재 level 에서 탐색하는 경우
+            if children.contains(where: {$0.value == node.value}) { // 현재 level 에서 탐색하는 경우
                 result += "\(node.value) "
             } else if let first = children.first { // 새로운 레벨을 시작하는 경우
                 result += "\n"

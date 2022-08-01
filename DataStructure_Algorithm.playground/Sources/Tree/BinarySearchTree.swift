@@ -5,6 +5,28 @@ public struct BinarySearchTree<Element: Comparable> { // Comparable 은 == 함�
     public private(set) var root: BinaryNode<Element>?
     
     public init() {}
+    public init(root: BinaryNode<Element>) {
+        self.root = root
+    }
+}
+
+extension BinarySearchTree: Equatable {
+    public static func == (lhs: BinarySearchTree, rhs: BinarySearchTree) -> Bool {
+        guard let lhsRoot = lhs.root, let rhsRoot = rhs.root else {
+            return false
+        }
+        var result = lhsRoot.value == rhsRoot.value
+        
+        if let lhsChild = lhsRoot.leftChild, let rhsChild = rhsRoot.leftChild {
+            result = BinarySearchTree<Element>(root: lhsChild) == BinarySearchTree<Element>(root: rhsChild)
+        }
+        
+        if let lhsChild = lhsRoot.rightChild, let rhsChild = rhsRoot.rightChild {
+            result = BinarySearchTree<Element>(root: lhsChild) == BinarySearchTree<Element>(root: rhsChild)
+        }
+        
+        return result
+    }
 }
 
 extension BinarySearchTree {

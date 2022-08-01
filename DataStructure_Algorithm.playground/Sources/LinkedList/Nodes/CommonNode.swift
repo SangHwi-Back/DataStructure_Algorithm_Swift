@@ -1,8 +1,6 @@
 import Foundation
 
-public class CommonNode<Value>: Equatable {
-    
-    private let id = UUID()
+public class CommonNode<Value: Equatable> {
     
     public var value: Value
     
@@ -10,7 +8,7 @@ public class CommonNode<Value>: Equatable {
         self.value = value
     }
     
-    public static func == (lhs: CommonNode<Value>, rhs: CommonNode<Value>) -> Bool {
-        lhs.id == rhs.id
-    }
+//    public static func == (lhs: CommonNode<Value>, rhs: CommonNode<Value>) -> Bool {
+//        lhs.value == rhs.value
+//    }
 }
