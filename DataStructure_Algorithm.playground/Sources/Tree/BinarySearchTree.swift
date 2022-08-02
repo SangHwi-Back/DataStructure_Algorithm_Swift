@@ -10,13 +10,42 @@ public struct BinarySearchTree<Element: Comparable> { // Comparable 은 == 함�
     }
 }
 
+// BinarySearchTree Challenge #2 - Equal BST
 extension BinarySearchTree: Equatable {
     public static func == (lhs: BinarySearchTree, rhs: BinarySearchTree) -> Bool {
-        guard let lhsRoot = lhs.root, let rhsRoot = rhs.root else {
-            return false
+        isEqual(lhs.root, rhs.root)
+    }
+    
+    private static func isEqual<Element: Equatable>(_ node1: BinaryNode<Element>?, _ node2: BinaryNode<Element>?) -> Bool {
+        
+        // 전달된 두 노드가 모두 nil 이면 true
+        guard let leftNode = node1, let rightNode = node2 else {
+            return node1 == nil && node2 == nil
         }
         
-        return lhsRoot == rhsRoot
+        // parent, leftChlid, rightChild 가 모두 같은지 검증하는 재귀 호출을 실행함.
+        return leftNode.value == rightNode.value &&
+            isEqual(leftNode.leftChild, rightNode.leftChild) &&
+            isEqual(leftNode.rightChild, rightNode.rightChild)
+    }
+}
+
+// BinarySearchTree Challenge #3 - SubTree
+extension BinarySearchTree where Element: Hashable {
+    public func contains(_ subTree: BinarySearchTree) -> Bool {
+        var set: Set<Element> = []
+        
+        root?.traverseInOrder(visit: {
+            set.insert($0)
+        })
+        
+        var isEqual = true
+        
+        subTree.root?.traverseInOrder(visit: {
+            isEqual = isEqual && set.contains($0)
+        })
+        
+        return isEqual
     }
 }
 

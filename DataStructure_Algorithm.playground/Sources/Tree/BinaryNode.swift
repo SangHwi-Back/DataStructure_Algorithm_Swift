@@ -46,25 +46,26 @@ public class BinaryNode<Element: Equatable> {
             visitChild(from: rightChild, as: &serialized)
         }
     }
+}
+
+// BinarySearchTree Challenge #1 - Check BST is
+extension BinaryNode where Element: Comparable {
     
-    // 1. Binary tree or binary search tree
-    public func isBinarySearch() -> Bool where Element: Comparable {
-        guard let leftChild = self.leftChild else {
+    var isBinarySearchTree: Bool {
+        isBST(self, min: nil, max: nil)
+    }
+    
+    private func isBST(_ tree: BinaryNode<Element>?, min: Element?, max: Element?) -> Bool {
+        guard let tree = tree else { return true }
+        
+        if let min = min, tree.value <= min {
+            return false
+        } else if let max = max, tree.value > max {
             return false
         }
         
-        if let rightChild = self.rightChild, leftChild.value <= rightChild.value, self.value <= rightChild.value {
-            return true
-        }
-        
-        return false
-    }
-}
-
-extension BinaryNode: Equatable {
-    public static func == (lhs: BinaryNode, rhs: BinaryNode) -> Bool {
-        print("haha")
-        return lhs.value == rhs.value && lhs.leftChild == rhs.leftChild && lhs.rightChild == rhs.rightChild
+        return isBST(tree.leftChild, min: min, max: tree.value) // leftChild 를 검증하기 위해 max 값을 parent의 값으로 하여 검증하도록 재귀 요청함.
+                && isBST(tree.rightChild, min: tree.value, max: max) // rightChild 를 검증하기 위해 min 값을 parent의 값으로 하여 검증하도록 재귀 요청함.
     }
 }
 
