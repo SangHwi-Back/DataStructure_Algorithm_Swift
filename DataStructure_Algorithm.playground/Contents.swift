@@ -1,10 +1,9 @@
 import Foundation
 
-let lhsTree = BinarySearchTree<Int>.getTestTree()
-var rhsTree = BinarySearchTree<Int>.getTestTree()
-rhsTree.remove(5)
-print(lhsTree)
-print(rhsTree)
-print(lhsTree==rhsTree)
+var tree = AVLTree<Int>()
 
-let lhsSubTree = BinarySearchTree<Int>.init(root: lhsTree.root!.leftChild!)
+for i in 0..<15 {
+    tree.insert(i)
+}
+
+print(tree)

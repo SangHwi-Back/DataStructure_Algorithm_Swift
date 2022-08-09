@@ -36,7 +36,11 @@ extension AVLTree {
         } else {
             node.rightChild = insert(from: node.rightChild, value: value)
         }
-        return node
+        
+        let balanceNode = balanced(node)
+        balanceNode.height = max(balanceNode.leftHeight, balanceNode.rightHeight) + 1
+        
+        return balanceNode
     }
     
     // Problem 앞의 R과 L은 문제가 발생하여 회전해야 하는 노드의 자식들이 어느 위치에 있는 지를 나타내는 것이다.
@@ -84,6 +88,28 @@ extension AVLTree {
         
         node.leftChild = leftRotate(leftChild)
         return rightRotate(node)
+    }
+    
+    private func balanced(_ node: AVLNode<Element>) -> AVLNode<Element> {
+        
+        switch node.balanceFactor {
+        case 2: // left-child is heavy
+            print("case 2")
+            if let leftChild = node.leftChild, leftChild.balanceFactor == -1 { // left-child's right-child is heavy
+                return leftRightRotate(node)
+            } else { // left-child's left-child is heavy
+                return rightRotate(node)
+            }
+        case -2: // right-child is heavy
+            print("case -2")
+            if let rightChild = node.rightChild, rightChild.balanceFactor == 1 { // rigt-child's left-child is heavy
+                return rightLeftRotate(node)
+            } else { // right-child's right-child is heavy
+                return leftRotate(node)
+            }
+        default:
+            return node
+        }
     }
 }
 

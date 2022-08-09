@@ -40,7 +40,7 @@ extension AVLNode: CustomStringConvertible {
         }
         return diagram(for: node.rightChild, top + " ", top + "┌──", top + "│ ")
         + root + "\(node.value)\n"
-        + diagram(for: node.rightChild, bottom + "│ ", bottom + "└──", bottom + " ")
+        + diagram(for: node.leftChild, bottom + "│ ", bottom + "└──", bottom + " ")
     }
 }
 
