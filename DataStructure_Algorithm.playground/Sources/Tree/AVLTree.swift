@@ -1,6 +1,11 @@
 import Foundation
 
 /**
+ AVL Tree
+ - Tree에 요소를 추가할 때마다 self-balancing 하는 트리 구조이다.
+ - balancing 은 문제가 되는 부분을 balancing 될 때까지 수정하는 방식으로 진행한다.
+ - balancing 은 4 개의 종류를 가진 회전을 이용한다.
+ 
  Balanced Binary Tree
  Balance의 종류
     Perfect balance = 모든 노드 뿐 아니라 자식 노드들까지 모든 레벨에서 동일하게 완벽히 채워진 상태.
@@ -167,7 +172,10 @@ extension AVLTree {
             node.rightChild = remove(node: node.rightChild, value: value)
         }
         
-        return node
+        let balanceNode = balanced(node)
+        balanceNode.height = max(balanceNode.leftHeight, balanceNode.rightHeight) + 1
+        
+        return balanceNode
 
     }
 }
