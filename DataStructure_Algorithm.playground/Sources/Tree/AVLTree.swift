@@ -38,6 +38,53 @@ extension AVLTree {
         }
         return node
     }
+    
+    // Problem 앞의 R과 L은 문제가 발생하여 회전해야 하는 노드의 자식들이 어느 위치에 있는 지를 나타내는 것이다.
+    
+    // LL Problem
+    private func leftRotate(_ node: AVLNode<Element>) -> AVLNode<Element> { // node 는 회전하는 노드.
+        
+        let pivot = node.rightChild! // 축. 회전 시 고정. 나중에 root 혹은 parent가 됨.
+        
+        // 회전하는 노드는 leftChild가 되고, 축의 leftChild는 움직이는 노드의 rightChild가 된다. Balancing 작업.
+        // Binary Search Tree 의 속성을 따르고 있음.
+        node.rightChild = pivot.leftChild
+        pivot.leftChild = node // 회전 완료!
+        
+        node.height = max(node.leftHeight, node.rightHeight) + 1
+        pivot.height = max(pivot.leftHeight, pivot.rightHeight) + 1
+        
+        return pivot
+    }
+    
+    // RR Problem
+    private func rightRotate(_ node: AVLNode<Element>) -> AVLNode<Element> {
+        let pivot = node.leftChild!
+        
+        node.leftChild = pivot.rightChild
+        pivot.rightChild = node
+        
+        node.height = max(node.leftHeight, node.rightHeight) + 1
+        pivot.height = max(pivot.leftHeight, pivot.rightHeight) + 1
+        
+        return pivot
+    }
+    
+    // RL Problem. right-rotation before left-rotation.
+    private func rightLeftRotate(_ node: AVLNode<Element>) -> AVLNode<Element> {
+        guard let rightChild = node.rightChild else { return node }
+        
+        node.rightChild = rightRotate(rightChild) // right-rotation
+        return leftRotate(node) // left-rotation
+    }
+    
+    // LR Problem. left-rotation before right-rotation.
+    private func leftRightRotate(_ node: AVLNode<Element>) -> AVLNode<Element> {
+        guard let leftChild = node.leftChild else { return node }
+        
+        node.leftChild = leftRotate(leftChild)
+        return rightRotate(node)
+    }
 }
 
 extension AVLTree {
