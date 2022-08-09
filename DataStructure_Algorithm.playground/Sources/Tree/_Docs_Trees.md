@@ -6,3 +6,12 @@
 - Leaf 노드는 아무런 자식 노드도 갖지 않는다.
 - Parent, Child, Leaf, Node 등의 용어에 익숙해져야 한다. 협업에 있어서 많이 쓰이는 용어이기 떄문이다.
 - 깊이 우선 순회, 단계별 순회는 일반적인 Tree에만 국한되지 않는다.
+
+Trees
+  |
+Binary Tree
+  |
+Binary Search Tree --> AVL Tree --> Red-Black Tree --> Splay Tree
+                   --> Tries
+  |
+Binary Search

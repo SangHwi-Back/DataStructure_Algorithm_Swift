@@ -27,6 +27,9 @@ extension AVLTree: CustomStringConvertible {
 }
 
 extension AVLTree {
+    /// BST 처럼 마지막 노드에 left or right-child 노드를 추가합니다.
+    ///
+    /// balanced 되어 있는지는 모르므로 balanced(_:) 함수를 실행한다.
     public mutating func insert(_ value: Element) {
         root = insert(from: root, value: value)
     }
@@ -48,17 +51,19 @@ extension AVLTree {
         return balanceNode
     }
     
-    // Problem 앞의 R과 L은 문제가 발생하여 회전해야 하는 노드의 자식들이 어느 위치에 있는 지를 나타내는 것이다.
-    
-    // LL Problem
-    private func leftRotate(_ node: AVLNode<Element>) -> AVLNode<Element> { // node 는 회전하는 노드.
+    /// leftRotate. LL Problem을 해결합니다.
+    ///
+    /// 파라미터로 전달하는 노드의 right-child 노드를 축으로 삼아서 자신은 왼쪽으로 회전합니다. 즉, left-child 노드가 됩니다.
+    ///
+    /// 회전은 모든 노드의 BF(Balance factor)가 -1, 0, 1 중 하나가 될 때까지 반복될 수 있습니다.
+    ///
+    /// - Parameter node: 회전하려는 노드. 축은 해당 노드의 right-child 입니다.
+    private func leftRotate(_ node: AVLNode<Element>) -> AVLNode<Element> {
         
-        let pivot = node.rightChild! // 축. 회전 시 고정. 나중에 root 혹은 parent가 됨.
+        let pivot = node.rightChild!
         
-        // 회전하는 노드는 leftChild가 되고, 축의 leftChild는 움직이는 노드의 rightChild가 된다. Balancing 작업.
-        // Binary Search Tree 의 속성을 따르고 있음.
         node.rightChild = pivot.leftChild
-        pivot.leftChild = node // 회전 완료!
+        pivot.leftChild = node
         
         node.height = max(node.leftHeight, node.rightHeight) + 1
         pivot.height = max(pivot.leftHeight, pivot.rightHeight) + 1
@@ -66,7 +71,13 @@ extension AVLTree {
         return pivot
     }
     
-    // RR Problem
+    /// rightRotate. RR Problem을 해결합니다.
+    ///
+    /// 파라미터로 전달하는 노드의 left-child 노드를 축으로 삼아서 자신은 오른쪽으로 회전합니다. 즉, right-child 노드가 됩니다.
+    ///
+    /// 회전은 모든 노드의 BF(Balance factor)가 -1, 0, 1 중 하나가 될 때까지 반복될 수 있습니다.
+    ///
+    /// - Parameter node: 회전하려는 노드. 축은 해당 노드의 left-child 입니다.
     private func rightRotate(_ node: AVLNode<Element>) -> AVLNode<Element> {
         let pivot = node.leftChild!
         
@@ -79,7 +90,11 @@ extension AVLTree {
         return pivot
     }
     
-    // RL Problem. right-rotation before left-rotation.
+    /// rightLeftRotate. RL Problem을 해결합니다.
+    ///
+    /// 파라미터 노드 자신은 오른쪽으로 치우쳐져 있고, 파라미터 노드의 leaf 노드는 왼쪽으로 치우친 경우를 해결합니다.
+    ///
+    /// leaf 노드를 축으로 자신이 rightRotate 하면 leaf 노드가 파라미터 노드의 parent-node 가 됩니다. parent-node 가 된 leaf-node 는 leftRotate의 축이 되어 구조를 balanced 하게 만듭니다.
     private func rightLeftRotate(_ node: AVLNode<Element>) -> AVLNode<Element> {
         guard let rightChild = node.rightChild else { return node }
         
@@ -87,7 +102,11 @@ extension AVLTree {
         return leftRotate(node) // left-rotation
     }
     
-    // LR Problem. left-rotation before right-rotation.
+    /// leftRightRotate. LR Problem을 해결합니다.
+    ///
+    /// 파라미터 노드 자신은 왼쪽으로 치우쳐져 있고, 파라미터 노드의 leaf 노드는 오른쪽으로 치우친 경우를 해결합니다.
+    ///
+    /// leaf 노드를 축으로 자신이 leftRotate 하면 leaf 노드가 파라미터 노드의 parent-node 가 됩니다. parent-node 가 된 leaf-node 는 rightRotate의 축이 되어 구조를 balanced 하게 만듭니다.
     private func leftRightRotate(_ node: AVLNode<Element>) -> AVLNode<Element> {
         guard let leftChild = node.leftChild else { return node }
         
@@ -95,21 +114,22 @@ extension AVLTree {
         return rightRotate(node)
     }
     
+    /// 전달된 노드의 BF(Balance factor) 에 따라 회전을 하는 메소드입니다.
+    ///
+    /// - Parameter node: BF가 2일 경우 leftRightRotate 혹은 rightRotate, -2일 경우 rightLeftRotate 혹은 leftRotate 를 하게 됩니다.
     private func balanced(_ node: AVLNode<Element>) -> AVLNode<Element> {
         
         switch node.balanceFactor {
-        case 2: // left-child is heavy
-            print("case 2")
-            if let leftChild = node.leftChild, leftChild.balanceFactor == -1 { // left-child's right-child is heavy
+        case 2:
+            if let leftChild = node.leftChild, leftChild.balanceFactor == -1 {
                 return leftRightRotate(node)
-            } else { // left-child's left-child is heavy
+            } else {
                 return rightRotate(node)
             }
-        case -2: // right-child is heavy
-            print("case -2")
-            if let rightChild = node.rightChild, rightChild.balanceFactor == 1 { // rigt-child's left-child is heavy
+        case -2:
+            if let rightChild = node.rightChild, rightChild.balanceFactor == 1 {
                 return rightLeftRotate(node)
-            } else { // right-child's right-child is heavy
+            } else {
                 return leftRotate(node)
             }
         default:
