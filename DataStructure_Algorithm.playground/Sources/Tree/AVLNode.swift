@@ -1,6 +1,6 @@
 import Foundation
 
-public class AVLNode<Element> {
+public final class AVLNode<Element>: TraversableBinaryMode {
     
     public var value: Element
     public var leftChild: AVLNode?
@@ -41,26 +41,5 @@ extension AVLNode: CustomStringConvertible {
         return diagram(for: node.rightChild, top + " ", top + "┌──", top + "│ ")
         + root + "\(node.value)\n"
         + diagram(for: node.leftChild, bottom + "│ ", bottom + "└──", bottom + " ")
-    }
-}
-
-extension AVLNode {
-    
-    public func traverseInOrder(visit: (Element) -> Void) {
-        leftChild?.traverseInOrder(visit: visit)
-        visit(value)
-        rightChild?.traverseInOrder(visit: visit)
-    }
-    
-    public func traversePreOrder(visit: (Element) -> Void) {
-        visit(value)
-        leftChild?.traversePreOrder(visit: visit)
-        rightChild?.traversePreOrder(visit: visit)
-    }
-    
-    public func traversePostOrder(visit: (Element) -> Void) {
-        leftChild?.traversePostOrder(visit: visit)
-        rightChild?.traversePostOrder(visit: visit)
-        visit(value)
     }
 }
