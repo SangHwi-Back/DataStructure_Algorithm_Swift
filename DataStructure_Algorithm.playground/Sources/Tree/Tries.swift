@@ -1,10 +1,20 @@
 import Foundation
 
-public class Trie<CollectionType: Collection> where CollectionType.Element: Hashable { // generic이 아닌 CollectionType.Element (CollectionType 이 아닌) 는 Hashable 을 구현해야 하는 경우 == 가 아닌 : 를 사용한다.
+public class Trie<CollectionType: Collection & Hashable> where CollectionType.Element: Hashable { // generic이 아닌 CollectionType.Element (CollectionType 이 아닌) 는 Hashable 을 구현해야 하는 경우 == 가 아닌 : 를 사용한다.
     
     public typealias Node = TrieNode<CollectionType.Element>
     
     private let root = Node(key: nil, parent: nil)
+    
+    public private(set) var collections: Set<CollectionType> = []
+    
+    public var count: Int {
+        collections.count
+    }
+    
+    public var isEmpty: Bool {
+        collections.isEmpty
+    }
     
     public init() {}
     
@@ -18,7 +28,12 @@ public class Trie<CollectionType: Collection> where CollectionType.Element: Hash
             current = current.children[element]!
         }
         
-        current.isTerminating = true
+        if current.isTerminating {
+            return
+        } else {
+            current.isTerminating = true
+            collections.insert(collection)
+        }
     }
     
     public func contains(_ collection: CollectionType) -> Bool {
@@ -51,6 +66,7 @@ public class Trie<CollectionType: Collection> where CollectionType.Element: Hash
         }
         
         current.isTerminating = false
+        collections.remove(collection)
         
         // Terminating 이후 노드만 제거하는 while loop.
         while let parent = current.parent, current.children.isEmpty && !current.isTerminating {
