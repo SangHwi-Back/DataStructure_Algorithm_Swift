@@ -1,23 +1,27 @@
 import Foundation
 
-func numberOfLeaves(_ height: Int) -> Int {
-    return Int(pow(2, Double(height)))
-}
+let trie = Trie<String>()
+trie.insert("car")
+trie.insert("card")
+trie.insert("care")
+trie.insert("cared")
+trie.insert("cars")
+trie.insert("carbs")
+trie.insert("carapace")
+trie.insert("cargo")
 
-func numberOfNodes(_ height: Int) -> Int {
-    var result = 0
-    for num in 1...height {
-        result += numberOfLeaves(num)
-    }
-    
-    return result
+print("Insert and Contains")
+if trie.contains("care") {
+    print("I found it!")
+} else {
+    print("No...")
 }
+print("Insert and Contains End")
 
-var tree = AVLTree<Int>()
+print("\nCollections starting with \"car\"")
+let prefixedWithCar = trie.collections(startingWith: "car")
+print(prefixedWithCar)
 
-for i in 0..<15 {
-    tree.insert(i)
-    tree.root?.traverseInOrder(visit: { elem in
-        print(elem)
-    })
-}
+print("\nCollections starting with \"care\"")
+let prefixedWithCare = trie.collections(startingWith: "care")
+print(prefixedWithCare)
