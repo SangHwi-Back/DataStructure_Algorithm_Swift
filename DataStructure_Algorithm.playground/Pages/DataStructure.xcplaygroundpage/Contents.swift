@@ -1,7 +1,7 @@
-//: [Previous](@previous)
-
 import Foundation
 
-var greeting = "Hello, playground"
+var priorityQueue = PriorityQueue(sort: >, elements: [1,12,3,4,1,6,8,7]) // Max Priority Queue
 
-//: [Next](@next)
+while !priorityQueue.isEmpty {
+    print(priorityQueue.dequeue())
+}

@@ -198,7 +198,7 @@ extension Heap: CustomStringConvertible {
             if nodeCount == index+1 {
                 let level = (nodeCount/2) // 0, 1, 2, 3
                 nodeCount += Int(truncating: pow(2, level) as NSNumber)
-                print("nodeCount \(nodeCount)")
+                
                 result += "\n"
             }
         }
