@@ -9,7 +9,6 @@ public func combination<T: Comparable>(_ arr: [T], _ count: Int) -> [[T]] {
     var stack = arr.enumerated().map({ ([$0.element], $0.offset)})
     
     while stack.count > 0 {
-        print(stack)
         let now = stack.removeLast() // ([1], 0)
         
         let elements = now.0 // [1]
@@ -28,6 +27,26 @@ public func combination<T: Comparable>(_ arr: [T], _ count: Int) -> [[T]] {
             }
         }
     }
+    
+    return result
+}
+
+public func combinationCycle<T: Comparable>(_ array: [T], _ n: Int) -> [[T]] {
+    var result = [[T]]()
+    if array.count < n { return result }
+    
+    func cycle(_ index: Int, _ now: [T]) {
+        if now.count == n {
+            result.append(now)
+            return
+        }
+        
+        for i in index ..< array.count {
+            cycle(i + 1, now + [array[i]])
+        }
+    }
+    
+    cycle(0, [])
     
     return result
 }

@@ -13,3 +13,4 @@ print(result.count)
 
 let numbers = [1,2,3,4]
 print(combination(numbers, 2))
+print(combinationCycle(numbers, 2))
