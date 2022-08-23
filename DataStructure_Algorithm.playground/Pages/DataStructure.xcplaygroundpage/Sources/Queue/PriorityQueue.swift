@@ -46,3 +46,45 @@ public struct PriorityQueue<Element: Equatable>: Queue {
         heap.remove()
     }
 }
+
+public struct PriorityQueueArray<Element: Comparable>: Queue {
+    
+    private var elements: [Element] = []
+    let sort: (Element, Element) -> Bool
+    
+    public init(sort: @escaping (Element, Element) -> Bool, elements: [Element] = []) {
+        self.sort = sort
+        self.elements = elements
+        self.elements.sort(by: sort)
+    }
+    
+    public var peek: Element? {
+        elements.first
+    }
+    
+    public var isEmpty: Bool {
+        elements.isEmpty
+    }
+    
+    public mutating func enqueue(_ element: Element) -> Bool {
+        for (index, item) in elements.enumerated() {
+            if sort(element, item) {
+                elements.insert(element, at: index)
+                return true
+            }
+        }
+        
+        elements.append(element)
+        return true
+    }
+    
+    public mutating func dequeue() -> Element? {
+        elements.removeFirst()
+    }
+}
+
+extension PriorityQueueArray: CustomStringConvertible {
+    public var description: String {
+        String(describing: elements)
+    }
+}
