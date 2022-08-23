@@ -50,17 +50,25 @@ public func permuteWirth<T>(_ a: [T], _ n: Int) {
 }
 
 /// 주어진 배열의 순열을 출력한다.
-public func permuteWirth<T>(_ a: [T], _ n: Int, result: inout [[T]]) {
-    if n == 0 {
-        result.append(a)
-    } else {
-        var a = a
-        permuteWirth(a, n-1)
-        
-        for i in 0..<n {
-            a.swapAt(i, n)
-            permuteWirth(a, n-1)
-            a.swapAt(i, n)
+public func permuteWirth2<T>(_ a: [T], _ n: Int) -> [[T]] {
+    var result = [[T]]()
+    
+    func permute(_ a: [T], _ n: Int) {
+        if n == 0 {
+            result.append(a)
+        } else {
+            var a = a
+            permute(a, n-1)
+            
+            for i in 0..<n {
+                a.swapAt(i, n)
+                permute(a, n-1)
+                a.swapAt(i, n)
+            }
         }
     }
+    
+    permute(a, n)
+    
+    return result
 }
