@@ -1,16 +1,6 @@
 import Foundation
 
-
-
-
-
-let letters = ["a", "b", "c", "d", "e"]
-print("Permutations of \(letters):")
-//permuteWirth(letters, letters.count - 1)
-//var result = [[String]]()
-let result = permuteWirth2(letters, letters.count - 1)
-print(result)
-
-//let numbers = [1,2,3,4]
-//print(combination(numbers, 2))
-//print(combinationCycle(numbers, 2))
+var array = [9,4,10,3]
+print("Original: \(array)")
+insertionSort(&array)
+print("Insertion sorted: \(array)")
