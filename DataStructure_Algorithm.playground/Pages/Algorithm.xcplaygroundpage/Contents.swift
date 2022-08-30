@@ -1,6 +1,6 @@
 import Foundation
 
-var array = [9,4,10,3]
+var array = [10, 8, 3, 7, 12, 99]
 print("Original: \(array)")
-insertionSort(&array)
+bubbleSort(&array)
 print("Insertion sorted: \(array)")
