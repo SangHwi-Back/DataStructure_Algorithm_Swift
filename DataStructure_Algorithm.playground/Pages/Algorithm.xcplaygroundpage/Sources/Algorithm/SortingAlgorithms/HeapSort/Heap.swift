@@ -101,6 +101,32 @@ public struct Heap<Element: Equatable> {
         }
     }
     
+    mutating func siftDown(from index: Int, upTo: Int) { // index의 노드를 한칸 위로 올린다.
+        var parent = index
+        
+        while true {
+            let left = leftChildIndex(ofParentAt: parent)
+            let right = rightChildIndex(ofParentAt: parent)
+            
+            var candidate = parent
+            
+            if left < upTo && sort(elements[left], elements[candidate]) {
+                candidate = left
+            }
+            
+            if right < upTo && sort(elements[right], elements[candidate]) {
+                candidate = right
+            }
+            
+            if candidate == parent {
+                return
+            }
+            
+            elements.swapAt(parent, candidate)
+            parent = candidate
+        }
+    }
+    
     public mutating func insert(_ element: Element) {
         elements.append(element)
         siftUp(from: elements.count-1)
