@@ -192,18 +192,19 @@ extension Heap: CustomStringConvertible {
             return ""
         }
         
+        var level = 1
         var nodeCount = 1
         var result = ""
         
-        for (index, elem) in elements.enumerated() {
-            result += "\(elem) "
+        for elem in elements {
             
-            if nodeCount == index+1 {
-                let level = (nodeCount/2) // 0, 1, 2, 3
-                nodeCount += Int(truncating: pow(2, level) as NSNumber)
-                
+            if Int(pow(Float(2), Float(level-1))) == nodeCount {
+                level += 1
                 result += "\n"
             }
+            
+            result += "\(elem) "
+            nodeCount += 1
         }
         
         return result
