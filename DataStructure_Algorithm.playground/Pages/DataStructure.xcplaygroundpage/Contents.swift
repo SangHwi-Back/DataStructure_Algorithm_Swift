@@ -1,41 +1,33 @@
 import Foundation
 
-//var priorityQueue = PriorityQueue(sort: >, elements: [1,12,3,4,1,6,8,7]) // Max Priority Queue
-//var priorityQueueArray = PriorityQueueArray(sort: >, elements: [1,12,3,4,1,6,8,7]) // Max Priority Queue
-//priorityQueueArray.enqueue(5)
-//priorityQueueArray.enqueue(0)
-//priorityQueueArray.enqueue(10)
-//while !priorityQueue.isEmpty {
-//    print(priorityQueue.dequeue() ?? -1)
-//}
-//print("-------------------------------")
-//while !priorityQueueArray.isEmpty {
-//    print(priorityQueueArray.dequeue() ?? -1)
-//}
+let graph = AdjacencyMatrix<String>()
 
-public struct Person: Equatable {
-  let name: String
-  let age: Int
-  let isMilitary: Bool
-}
+let singapore = graph.createVertex(data: "Singapore")
+let tokyo = graph.createVertex(data: "Tokyo")
+let hongKong = graph.createVertex(data: "Hong Kong")
+let detroit = graph.createVertex(data: "Detroit")
+let sanFrancisco = graph.createVertex(data: "San Francisco")
+let washingtonDC = graph.createVertex(data: "Washington DC")
+let austinTexas = graph.createVertex(data: "Austin Texas")
+let seattle = graph.createVertex(data: "Seattle")
 
-var waitlistQueue = PriorityQueue(sort: { lh, rh in
-    if lh.isMilitary && rh.isMilitary {
-        return lh.age > rh.age
-    }
-    
-    return lh.isMilitary
-}, elements: [
-    Person(name: "A", age: 1, isMilitary: false),
-    Person(name: "B", age: 1, isMilitary: false),
-    Person(name: "C", age: 1, isMilitary: true),
-    Person(name: "D", age: 1, isMilitary: false),
-    Person(name: "E", age: 1, isMilitary: true),
-    Person(name: "F", age: 1, isMilitary: true),
-    Person(name: "G", age: 1, isMilitary: false),
-    Person(name: "H", age: 1, isMilitary: false),
-])
+graph.add(.undirected, from: singapore, to: hongKong, weight: 300)
+graph.add(.undirected, from: singapore, to: tokyo, weight: 500)
+graph.add(.undirected, from: hongKong, to: tokyo, weight: 250)
+graph.add(.undirected, from: tokyo, to: detroit, weight: 450)
+graph.add(.undirected, from: tokyo, to: washingtonDC, weight: 300)
+graph.add(.undirected, from: hongKong, to: sanFrancisco, weight: 600)
+graph.add(.undirected, from: detroit, to: austinTexas, weight: 50)
+graph.add(.undirected, from: austinTexas, to: washingtonDC, weight: 292)
+graph.add(.undirected, from: sanFrancisco, to: washingtonDC, weight: 337)
+graph.add(.undirected, from: washingtonDC, to: seattle, weight: 277)
+graph.add(.undirected, from: sanFrancisco, to: seattle, weight: 218)
+graph.add(.undirected, from: austinTexas, to: sanFrancisco, weight: 297)
 
-while !waitlistQueue.isEmpty {
-    print(waitlistQueue.dequeue())
+print(graph)
+
+print("San Francisco Outgoing Flights:")
+print("--------------------------------")
+for edge in graph.edges(from: sanFrancisco) {
+  print("from: \(edge.source) to: \(edge.destination)")
 }
