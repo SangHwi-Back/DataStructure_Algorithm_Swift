@@ -178,3 +178,10 @@ Dutch national flag partitioning 은 Partitioning Strategy(Lomuto's, Hoare's) �
 * 잘못된 pivoting 은 높은 시간복잡도 (O(n2)) 를 야기한다.
 * Median of three 는 pivot 을 중간에서 첫번째, 중간에서 마지막 요소로 잡는다.
 * Dutch national flag partitioning 은 중복 요소를 효율적으로 정렬한다.
+
+---
+
+## MergeSort & QuickSort
+
+* MergeSort 는 시간복잡도가 평이하다는 측면에서 QuickSort 보다 우수하다. MergeSort 는 언제나 O(n log n) 시간복잡도를 유지한다. 만약 partitioning strategy 선택을 잘못한 QuickSort 는 O(n2) 시간복잡도를 나타낼 수 있다.
+* MergeSort 는 QuickSort 에 비해 복잡하게 흩어지고 큰 데이터 (메모리에 잡힌) 를 처리할 때 우수한 면을 보여준다. 하지만, 이미 정렬이 일부 된 상태에서 서로 인접한 자료구조 끼리 정렬하여 연결해야 한다면 QuickSort 가 좋다.
