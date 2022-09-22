@@ -27,7 +27,7 @@ public enum EdgeType {
 public protocol Graph {
     
     associatedtype Element
-    
+    var allVertices: [Vertex<Element>] { get }
     func createVertex(data: Element) -> Vertex<Element>
     func addDirectedEdge(from source: Vertex<Element>,
                          to destination: Vertex<Element>,
