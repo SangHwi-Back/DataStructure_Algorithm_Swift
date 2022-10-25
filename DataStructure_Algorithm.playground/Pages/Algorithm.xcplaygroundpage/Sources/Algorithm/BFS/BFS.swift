@@ -81,29 +81,29 @@ extension Graph where Element: Hashable {
         bfs(queue: &queue, enqueued: &enqueued, visited: &visited)
     }
     
-    func isDisConnected() -> Bool {
-        var result = 0
-        if let firstVertex = allVertices.first {
-            result = breadthFirstSearch(from: firstVertex).count
-        }
-        
-        return result != self.allVertices.count
-    }
-    
-    func isDisConnectedEnhanced() -> Bool {
-        
-        guard let firstVertex = allVertices.first else {
-            return false
-        }
-        
-        let visited = breadthFirstSearch(from: firstVertex)
-        
-        for vertex in allVertices {
-            if visited.contains(vertex) == false {
-                return true
-            }
-        }
-        
-        return false
-    }
+//    func isDisConnected() -> Bool {
+//        var result = 0
+//        if let firstVertex = allVertices.first {
+//            result = breadthFirstSearch(from: firstVertex).count
+//        }
+//        
+//        return result != self.allVertices.count
+//    }
+//    
+//    func isDisConnectedEnhanced() -> Bool {
+//        
+//        guard let firstVertex = allVertices.first else {
+//            return false
+//        }
+//        
+//        let visited = breadthFirstSearch(from: firstVertex)
+//        
+//        for vertex in allVertices {
+//            if visited.contains(vertex) == false {
+//                return true
+//            }
+//        }
+//        
+//        return false
+//    }
 }
