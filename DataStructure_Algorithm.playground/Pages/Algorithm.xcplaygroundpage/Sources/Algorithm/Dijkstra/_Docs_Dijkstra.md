@@ -13,7 +13,53 @@ Dijkstra 알고리즘은 탐욕법이다. 탐욕법은 단계별로 문제를 �
 ## 구현
 
 ```swift
+enum Visit<T: Hashable> {
+    case start
+    case edge(Edge<T>)
+}
 
+func route(to destination: Vertex<T>, with paths: [Vertex<T>: Visit<T>]) -> [Edges<T>] {
+    var vertex = destination
+    var path = [Edge<T>]()
+    
+    while let visit = paths[vertex], case Visit.edge(let edge) = visit {
+        path = [edge] + path
+        vertex = edge.source
+    }
+    
+    return path
+}
+
+func distance(to destination: Vertex<T>, with paths: [Vertex<T>: Visit<T>]) -> Double {
+    let path = route(to: destination, with: paths)
+    let distance = path.compactMap({ $0.weight })
+    return distance reduce(0.0, +)
+}
+
+func shortestPicks(from start: Vertex<T> with paths: [Vertext<T>: Visit<T>]) -> Double {
+    var paths: [Vertex<T>: Visit<T>] = [start: .start] // 도착 지점의 Vertex 에 
+    
+    var priorityQueue = PriorityQueue<Vertex<T>>(sort: {
+        self.distance(to: $0, with: paths) < self.distance(to: $1, with: paths)
+    })
+    priorityQueue.enqueue(start)
+    
+    while let vertex = priorityQueue.dequeue() {
+        for edge in graph.edges(from: vertex) {
+            guard let weight = edge.weight else { continue }
+            
+            if paths[edge.destination] == nil || // 도달한 적이 없거나
+                distance(to: vertex, with: paths) + weight <
+                distance(to: edge.destination, with: paths) { // 비용이 더 낮으면
+            
+                paths[edge.destination] = .edge(edge)
+                priorityQueue.enqueue(edge.destination)
+            }
+        }
+    }
+    
+    return paths
+}
 ```
 
 ## 성능
