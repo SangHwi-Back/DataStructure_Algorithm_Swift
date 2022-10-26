@@ -1,7 +1,7 @@
 import Foundation
 
 public class AdjacencyList<T: Hashable>: Graph {
-    private var allVertices: [Vertex<T>: [Edge<T>]] = [:]
+    public var allVertices: [Vertex<T>: [Edge<T>]] = [:]
     
     public init() {}
     
