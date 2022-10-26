@@ -11,6 +11,7 @@ public struct Vertex<T> {
     public let data: T
 }
 
+extension Edge: Equatable where T: Equatable {}
 extension Vertex: Hashable where T: Hashable {}
 extension Vertex: Equatable where T: Equatable {}
 extension Vertex: CustomStringConvertible {
